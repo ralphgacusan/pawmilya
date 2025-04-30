@@ -8,25 +8,63 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    @vite('resources/css/app.css')
+    @vite('resources/css/about.css')
+    @stack('styles')
 </head>
 
 <body>
+    <!-- Header with Navigation -->
     <header class="main-header">
         <div class="container">
             <div class="logo">
-                <img src="logo.jpg" alt="Pawmilya Logo">
+                <img src="{{ asset('imgs/logo.jpg') }}" alt="Pawmilya Logo">
                 <span>Pawmilya</span>
             </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="#"><i class="fas fa-paw"></i> Pets</a></li>
-                    <li><a href="adopt.html"><i class="fas fa-home"></i> Adopt</a></li>
-                    <li><a href="rehome.html"><i class="fas fa-heart"></i> Rehome</a></li>
-                    <li><a href="donate.html" class="active"><i class="fas fa-hand-holding-heart"></i> Donation</a></li>
-                    <li><a href="service.html"><i class="fas fa-concierge-bell"></i> Services</a></li>
-                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
-                    <li><a href="Index.html" class="sign-in-btn"><i class="fas fa-home"></i> Home</a></li>
+                    <li>
+                        <a href="{{ route('client.pets') }}"
+                            class="{{ request()->routeIs('client.pets') ? 'active' : '' }}">
+                            <i class="fas fa-paw"></i> Pets
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('client.adopt') }}"
+                            class="{{ request()->routeIs('client.adopt') ? 'active' : '' }}">
+                            <i class="fas fa-home"></i> Adopt
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('client.rehome') }}"
+                            class="{{ request()->routeIs('client.rehome') ? 'active' : '' }}">
+                            <i class="fas fa-heart"></i> Rehome
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('client.donation') }}"
+                            class="{{ request()->routeIs('client.donation') ? 'active' : '' }}">
+                            <i class="fas fa-hand-holding-heart"></i> Donation
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('client.services') }}"
+                            class="{{ request()->routeIs('client.services') ? 'active' : '' }}">
+                            <i class="fas fa-concierge-bell"></i> Services
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('client.about') }}"
+                            class="{{ request()->routeIs('client.about') ? 'active' : '' }}">
+                            <i class="fas fa-info-circle"></i> About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('client.home') }}"
+                            class="sign-in-btn {{ request()->routeIs('client.home') ? 'active' : '' }}">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+
                 </ul>
             </nav>
             <button class="mobile-menu-btn">
