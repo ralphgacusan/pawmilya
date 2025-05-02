@@ -10,4 +10,6 @@ class HomeController extends Controller
     public function homePage(){
         return view('client.home');
     }
+
+    
 }

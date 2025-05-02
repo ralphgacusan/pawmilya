@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    @vite('resources/css/about.css')
+    <title>@yield('title', 'Pawmilya')</title>
+    <link rel="icon" href="{{ asset('imgs/paw.png') }}" type="image/x-icon">
+    @vite(['resources/css/about.css', 'resources/js/pet.js'])
     @stack('styles')
 </head>
 
@@ -60,9 +61,33 @@
                     </li>
                     <li>
                         <a href="{{ route('client.home') }}"
-                            class="sign-in-btn {{ request()->routeIs('client.home') ? 'active' : '' }}">
+                            class="{{ request()->routeIs('client.home') ? 'active' : '' }}">
                             <i class="fas fa-home"></i> Home
                         </a>
+                    </li>
+                    <li>
+                        <div class="user-dropdown">
+                            <a href="#" class="sign-in-btn">
+                                <i class="fas fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                @auth
+                                    {{-- user account page --}}
+                                    <a href="/">View Account</a>
+
+                                    <form method="POST" action="{{ route('auth.logout') }}">
+                                        @csrf
+                                        <button type="submit">Log Out</button>
+                                    </form>
+                                @endauth
+
+                                @guest
+                                    <a href="{{ route('auth.signin') }}">Sign In</a>
+                                    <a href="{{ route('auth.signup') }}">Sign Up</a>
+                                @endguest
+                            </div>
+                        </div>
+
                     </li>
 
                 </ul>

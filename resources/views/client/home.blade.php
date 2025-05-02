@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pawmilya - Pet Adoption & Rescue</title>
+    <link rel="icon" href="{{ asset('imgs/paw.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    @vite('resources/css/app.css')
+
+    @vite(['resources/css/app.css'])
+
 </head>
 
 <body>
@@ -28,6 +31,7 @@
                             Donation</a></li>
                     <li><a href="{{ route('client.services') }}"><i class="fas fa-concierge-bell"></i> Services</a></li>
                     <li><a href="{{ route('client.about') }}"><i class="fas fa-info-circle"></i> About Us</a></li>
+                    <li><a href="{{ route('auth.signin') }}"><i class="fas fa-user"></i> Account</a></li>
                     <li><a href="{{ route('client.home') }}" class="sign-in-btn"><i class="fas fa-home"></i> Home</a>
                     </li>
                 </ul>

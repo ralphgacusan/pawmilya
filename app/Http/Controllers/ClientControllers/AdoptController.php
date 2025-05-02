@@ -10,4 +10,8 @@ class AdoptController extends Controller
     public function adoptPage(){
         return view('client.adopt');
     }
+
+    public function adoptFormPage(){
+        return view('client.adopt-form');
+    }
 }

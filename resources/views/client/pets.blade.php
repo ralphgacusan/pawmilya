@@ -1,5 +1,7 @@
 <x-customer-layout>
 
+    @section('title', 'Browse Pets - Pawmilya')
+
     @push('styles')
         @vite(['resources/css/pet.css', 'resources/css/about.css'])
     @endpush
@@ -125,348 +127,63 @@
             <!-- Pets Grid -->
             <div class="pets-grid">
                 <!-- Dog 1 -->
-                <div class="pet-card" data-type="dog" data-breed="labrador" data-age="young" data-gender="male"
-                    data-size="large" data-special="no">
-                    <div class="pet-image">
-                        <img src="/Asset/dog1.png" alt="Buddy">
-                        <span class="pet-badge">Available</span>
-                    </div>
-                    <div class="pet-info">
-                        <h3>Buddy <span class="pet-type">Dog</span></h3>
-                        <p><i class="fas fa-birthday-cake"></i> 2 years old</p>
-                        <div class="tags">
-                            <span class="breed-tag">Pug</span>
-                            <span class="size-tag">Small</span>
+                @foreach ($pets as $pet)
+                    <div class="pet-card" data-type="{{ $pet->type }}" data-breed="{{ $pet->breed }}"
+                        data-age="{{ $pet->age }}" data-gender="{{ $pet->gender }}"
+                        data-size="{{ $pet->size }}" data-special="{{ $pet->special_needs }}">
+                        <div class="pet-image">
+                            <!-- Display the image dynamically from the database -->
+                            <img src="{{ asset('storage/' . $pet->image) }}" alt="{{ $pet->name }} Image">
                         </div>
-                        <br>
-                        <button class="btn btn-primary view-details" data-pet="1">View Details</button>
-                    </div>
+                        <div class="pet-info">
+                            <h3>{{ $pet->name }} <span class="pet-type">{{ ucfirst($pet->type) }}</span></h3>
+                            <p><i class="fas fa-birthday-cake"></i> {{ \Carbon\Carbon::parse($pet->birth_date)->age }}
+                                years old</p>
+                            <div class="tags">
+                                <span class="breed-tag">{{ ucfirst($pet->breed) }}</span>
+                                <span class="size-tag">{{ ucfirst($pet->size) }}</span>
+                            </div>
+                            <br>
+                            <button class="btn btn-primary view-details" data-pet="{{ $pet->id }}">View
+                                Details</button>
+                        </div>
 
-                    <div class="pet-details" id="pet-details-1" style="display: none;">
-                        <div class="detail-row">
-                            <div class="detail-label">Breed:</div>
-                            <div class="detail-value">Labrador Retriever</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Gender:</div>
-                            <div class="detail-value">Male</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Size:</div>
-                            <div class="detail-value">Large (65 lbs)</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Temperament:</div>
-                            <div class="detail-value">Friendly, Outgoing, Active</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Good with:</div>
-                            <div class="detail-value">Kids, Dogs, Cats</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Description:</div>
-                            <div class="detail-value">Buddy is a playful and energetic lab who loves fetch and
-                                swimming. He's house-trained and knows basic commands.</div>
-                        </div>
-                        <a href="/Webpages/adoptform.html">
-                            <button class="btn btn-secondary" style="margin-top: 15px;">Apply to Adopt</button>
-                        </a>
-                    </div>
-                </div>
+                        <div class="pet-details" id="pet-details-{{ $pet->id }}" style="display: none;">
+                            <div class="detail-row">
+                                <div class="detail-label">Breed:</div>
+                                <div class="detail-value">{{ ucfirst($pet->breed) }}</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Gender:</div>
+                                <div class="detail-value">{{ ucfirst($pet->gender) }}</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Weight:</div>
+                                <div class="detail-value">{{ ucfirst($pet->weight) }} lbs</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Description:</div>
+                                <div class="detail-value">{{ ucfirst($pet->description) }}</div>
+                            </div>
 
-                <!-- Dog 2 (Special Needs) -->
-                <div class="pet-card" data-type="dog" data-breed="poodle" data-age="adult" data-gender="female"
-                    data-size="medium" data-special="yes">
-                    <div class="pet-image">
-                        <img src="/Asset/dog2.png" alt="Daisy">
-                        <span class="pet-badge">Available</span>
-                        <span class="special-needs-badge">Special Needs</span>
-                    </div>
-                    <div class="pet-info">
-                        <h3>Daisy <span class="pet-type">Dog</span></h3>
-                        <p><i class="fas fa-birthday-cake"></i> 5 years old</p>
-                        <div class="tags">
-                            <span class="breed-tag">Dogue de Bourdeaux</span>
-                            <span class="size-tag">Large</span>
-                        </div>
-                        <br>
-                        <button class="btn btn-primary view-details" data-pet="2">View Details</button>
-                    </div>
+                            <div class="pets-button-group">
+                                <a href="{{ route('client.adopt-form') }}">
+                                    <button class="btn btn-secondary">Apply to Adopt</button>
+                                </a>
+                                <a href="{{ route('client.specific-pet') }}">
+                                    <button class="btn btn-primary" data-pet="{{ $pet->id }}">View More</button>
+                                </a>
+                            </div>
 
-                    <div class="pet-details" id="pet-details-2">
-                        <div class="detail-row">
-                            <div class="detail-label">Breed:</div>
-                            <div class="detail-value">Standard Poodle</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Gender:</div>
-                            <div class="detail-value">Female</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Size:</div>
-                            <div class="detail-value">Medium (40 lbs)</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Special Needs:</div>
-                            <div class="detail-value">Requires daily medication for thyroid condition</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Temperament:</div>
-                            <div class="detail-value">Gentle, Intelligent, Calm</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Good with:</div>
-                            <div class="detail-value">Kids, Dogs, Cats</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Description:</div>
-                            <div class="detail-value">Daisy is a sweet senior poodle who was surrendered when her owner
-                                passed away. She's well-trained and loves cuddles.</div>
-                        </div>
-                        <a href="/Webpages/adoptform.html">
-                            <button class="btn btn-secondary" style="margin-top: 15px;">Apply to Adopt</button>
-                        </a>
-                    </div>
-                </div>
 
-                <!-- Dog 3 (New Breed) -->
-                <div class="pet-card" data-type="dog" data-breed="german-shepherd" data-age="adult"
-                    data-gender="male" data-size="large" data-special="no">
-                    <div class="pet-image">
-                        <img src="/Asset/dog3.png" alt="Rex ">
-                        <span class="pet-badge">Available</span>
-                    </div>
-                    <div class="pet-info">
-                        <h3>Rex <span class="pet-type">Dog</span></h3>
-                        <p><i class="fas fa-birthday-cake"></i> 3 years old</p>
-                        <div class="tags">
-                            <span class="breed-tag">American Eskimo</span>
-                            <span class="size-tag">Small</span>
-                        </div>
-                        <br>
-                        <button class="btn btn-primary view-details" data-pet="3">View Details</button>
-                    </div>
 
-                    <div class="pet-details" id="pet-details-3">
-                        <div class="detail-row">
-                            <div class="detail-label">Breed:</div>
-                            <div class="detail-value">German Shepherd</div>
                         </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Gender:</div>
-                            <div class="detail-value">Male</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Size:</div>
-                            <div class="detail-value">Large (75 lbs)</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Temperament:</div>
-                            <div class="detail-value">Loyal, Intelligent, Protective</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Good with:</div>
-                            <div class="detail-value">Kids, Dogs</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Description:</div>
-                            <div class="detail-value">Rex is a trained German Shepherd who would make an excellent
-                                companion or guard dog. He knows advanced commands and loves to work.</div>
-                        </div>
-                        <a href="/Webpages/adoptform.html">
-                            <button class="btn btn-secondary" style="margin-top: 15px;">Apply to Adopt</button>
-                        </a>
                     </div>
-                </div>
+                @endforeach
 
-                <!-- Cat 1 -->
-                <div class="pet-card" data-type="cat" data-breed="siamese" data-age="young" data-gender="male"
-                    data-special="no">
-                    <div class="pet-image">
-                        <img src="/Asset/cat1.jpg" alt="Oliver the Siamese">
-                        <span class="pet-badge">Available</span>
-                    </div>
-                    <div class="pet-info">
-                        <h3>Oliver <span class="pet-type">Cat</span></h3>
-                        <p><i class="fas fa-birthday-cake"></i> 1.5 years old</p>
-                        <div class="tags">
-                            <span class="breed-tag">Siamese</span>
-                        </div>
-                        <br>
-                        <button class="btn btn-primary view-details" data-pet="4">View Details</button>
-                    </div>
+            </div>
+        </div>
 
-                    <div class="pet-details" id="pet-details-4">
-                        <div class="detail-row">
-                            <div class="detail-label">Breed:</div>
-                            <div class="detail-value">Siamese</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Gender:</div>
-                            <div class="detail-value">Male</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Temperament:</div>
-                            <div class="detail-value">Vocal, Affectionate, Playful</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Good with:</div>
-                            <div class="detail-value">Kids, Cats</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Description:</div>
-                            <div class="detail-value">Oliver is a talkative Siamese who loves attention. He enjoys
-                                playing with feather toys and sitting in sunny spots.</div>
-                        </div>
-                        <a href="/Webpages/adoptform.html">
-                            <button class="btn btn-secondary" style="margin-top: 15px;">Apply to Adopt</button>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Cat 2 (Special Needs) -->
-                <div class="pet-card" data-type="cat" data-breed="persian" data-age="senior" data-gender="female"
-                    data-special="yes">
-                    <div class="pet-image">
-                        <img src="/Asset/cat2.png" alt="Mittens the Persian">
-                        <span class="pet-badge">Available</span>
-                        <span class="special-needs-badge">Special Needs</span>
-                    </div>
-                    <div class="pet-info">
-                        <h3>Mittens <span class="pet-type">Cat</span></h3>
-                        <p><i class="fas fa-birthday-cake"></i> 10 years old</p>
-                        <div class="tags">
-                            <span class="breed-tag">Persian</span>
-                        </div>
-                        <br>
-                        <button class="btn btn-primary view-details" data-pet="5">View Details</button>
-                    </div>
-
-                    <div class="pet-details" id="pet-details-5">
-                        <div class="detail-row">
-                            <div class="detail-label">Breed:</div>
-                            <div class="detail-value">Persian</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Gender:</div>
-                            <div class="detail-value">Female</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Special Needs:</div>
-                            <div class="detail-value">Requires daily grooming and has mild arthritis</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Temperament:</div>
-                            <div class="detail-value">Calm, Gentle, Affectionate</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Good with:</div>
-                            <div class="detail-value">Quiet households</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Description:</div>
-                            <div class="detail-value">Mittens is a sweet senior Persian who was surrendered when her
-                                owner moved overseas. She prefers a quiet home without small children.</div>
-                        </div>
-                        <a href="/Webpages/adoptform.html">
-                            <button class="btn btn-secondary" style="margin-top: 15px;">Apply to Adopt</button>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Cat 3 (New Breed) -->
-                <div class="pet-card" data-type="cat" data-breed="scottish-fold" data-age="young"
-                    data-gender="female" data-special="no">
-                    <div class="pet-image">
-                        <img src="/Asset/cat3.png" alt="Luna the Scottish Fold">
-                        <span class="pet-badge">Available</span>
-                    </div>
-                    <div class="pet-info">
-                        <h3>Luna <span class="pet-type">Cat</span></h3>
-                        <p><i class="fas fa-birthday-cake"></i> 1 year old</p>
-                        <div class="tags">
-                            <span class="breed-tag">Scottish Fold</span>
-                        </div>
-                        <br>
-                        <button class="btn btn-primary view-details" data-pet="6">View Details</button>
-                    </div>
-
-                    <div class="pet-details" id="pet-details-6">
-                        <div class="detail-row">
-                            <div class="detail-label">Breed:</div>
-                            <div class="detail-value">Scottish Fold</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Gender:</div>
-                            <div class="detail-value">Female</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Temperament:</div>
-                            <div class="detail-value">Sweet, Playful, Adaptable</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Good with:</div>
-                            <div class="detail-value">Kids, Dogs, Cats</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Description:</div>
-                            <div class="detail-value">Luna is a friendly Scottish Fold who enjoys cuddles and playing
-                                with other pets. She has a calm demeanor but loves interactive play.</div>
-                        </div>
-                        <a href="/Webpages/adoptform.html">
-                            <button class="btn btn-secondary" style="margin-top: 15px;">Apply to Adopt</button>
-                        </a>
-                    </div>
-                </div>
-                <!--Chromeranz-->
-                <div class="pet-card" data-type="Exotic" data-breed="bearded-dragon" data-age="young"
-                    data-gender="male" data-size="large" data-special="no">
-                    <div class="pet-image">
-                        <img src="/Asset/pet1.png" alt="Chrome">
-                        <span class="pet-badge">Available</span>
-                    </div>
-                    <div class="pet-info">
-                        <h3>Chromeranz <span class="pet-type">Blue Iguana</span></h3>
-                        <p><i class="fas fa-birthday-cake"></i> 2 years old</p>
-                        <div class="tags">
-                            <span class="breed-tag">Lizard</span>
-                            <span class="size-tag">Small</span>
-                        </div>
-                        <br>
-                        <button class="btn btn-primary view-details" data-pet="1">View Details</button>
-                    </div>
-
-                    <div class="pet-details" id="pet-details-1" style="display: none;">
-                        <div class="detail-row">
-                            <div class="detail-label">Breed:</div>
-                            <div class="detail-value">Blue Iguana </div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Gender:</div>
-                            <div class="detail-value">Male</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Size:</div>
-                            <div class="detail-value">Large (65 lbs)</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Temperament:</div>
-                            <div class="detail-value">Friendly, Outgoing, Active</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Good with:</div>
-                            <div class="detail-value">Kids, Dogs, Cats</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Description:</div>
-                            <div class="detail-value">Buddy is a playful and energetic lab who loves fetch and
-                                swimming. He's house-trained and knows basic commands.</div>
-                        </div>
-                        <a href="/Webpages/adoptform.html">
-                            <button class="btn btn-secondary" style="margin-top: 15px;">Apply to Adopt</button>
-                        </a>
-                    </div>
-                </div>
     </section>
 
 </x-customer-layout>

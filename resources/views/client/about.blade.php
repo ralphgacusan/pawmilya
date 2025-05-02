@@ -1,5 +1,7 @@
 <x-customer-layout>
 
+    @section('title', 'About Us - Pawmilya')
+
     @push('styles')
         @vite(['resources/css/about.css'])
     @endpush

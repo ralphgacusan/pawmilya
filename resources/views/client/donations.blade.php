@@ -1,5 +1,8 @@
 <x-customer-layout>
 
+    @section('title', 'Support Our Pets - Pawmilya')
+
+
     @push('styles')
         @vite(['resources/css/donate.css', 'resources/css/about.css'])
     @endpush
@@ -32,68 +35,82 @@
                 </div>
 
                 <form class="donation-form">
-                    <div class="toggle-buttons">
-                        <button type="button" class="active"><i class="fas fa-gift"></i> One-Time</button>
-                        <button type="button"><i class="fas fa-calendar-alt"></i> Monthly</button>
-                    </div>
 
-                    <div class="amount-options">
-                        <h3>Select donation amount:</h3>
-                        <div class="amount-buttons">
-                            <button type="button">₱200</button>
-                            <button type="button">₱500</button>
-                            <button type="button">₱1,000</button>
-                            <button type="button">₱2,000</button>
-                            <button type="button">₱5,000</button>
-                        </div>
-                        <div class="custom-amount">
-                            <input type="number" placeholder="₱ Other Amount" required />
-                        </div>
-                    </div>
+                    <h2>Kindness Form</h2>
 
-                    <div class="form-group">
-                        <input type="text" placeholder="First Name" required />
-                        <input type="text" placeholder="Last Name" required />
-                    </div>
-                    <input type="email" placeholder="Email Address" required />
-                    <input type="tel" placeholder="Mobile Number" required />
-
-                    <select required>
-                        <option value="" disabled selected>Where should your donation go?</option>
-                        <option value="dogs"><i class="fas fa-dog"></i> Dogs</option>
-                        <option value="cats"><i class="fas fa-cat"></i> Cats</option>
-                        <option value="birds"><i class="fas fa-dove"></i> Birds</option>
-                        <option value="general">General Fund</option>
-                    </select>
-
+                    <!-- Donation Type -->
                     <div class="payment-methods">
-                        <h3>Payment Method:</h3>
+                        <h3>Donation Type:</h3>
                         <div class="payment-options">
                             <label>
-                                <input type="radio" name="payment" checked>
+                                <input type="radio" name="donation_type" value="one-time" checked>
+                                <span class="payment-card"><i class="fas fa-gift"></i> One-Time</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="donation_type" value="monthly">
+                                <span class="payment-card"><i class="fas fa-calendar-alt"></i> Monthly</span>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <!-- User Information (Read-only and Full Width) -->
+                    <div class="form-group">
+                        <input type="text" name="fullName" class="form-input full-width" placeholder="Full Name"
+                            value="John Doe" readonly />
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-input full-width" placeholder="Email Address"
+                            value="your@email.com" readonly />
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" class="form-input full-width" placeholder="Mobile Number"
+                            value="(123) 456-7890" readonly />
+                    </div>
+
+                    <!-- Donation Beneficiary -->
+                    <div class="form-group">
+                        <select name="beneficiary" class="form-input full-width" required>
+                            <option value="" disabled selected>Where should your donation go?</option>
+                            <option value="dogs">Dogs</option>
+                            <option value="cats">Cats</option>
+                            <option value="birds">Birds</option>
+                            <option value="general">General Fund</option>
+                        </select>
+                    </div>
+
+                    <!-- Payment Method Selection -->
+                    <div class="payment-methods">
+                        <h3>Donation Method:</h3>
+                        <div class="payment-options">
+                            <label>
+                                <input type="radio" name="payment" value="Card" checked>
                                 <span class="payment-card"><i class="fab fa-cc-visa"></i> <i
                                         class="fab fa-cc-mastercard"></i> Card</span>
                             </label>
                             <label>
-                                <input type="radio" name="payment">
+                                <input type="radio" name="payment" value="PayPal">
                                 <span class="payment-card"><i class="fab fa-paypal"></i> PayPal</span>
                             </label>
                             <label>
-                                <input type="radio" name="payment">
+                                <input type="radio" name="payment" value="GCash">
                                 <span class="payment-card"><i class="fas fa-money-bill-wave"></i> GCash</span>
                             </label>
                         </div>
                     </div>
 
+                    <!-- Submit Button -->
                     <button type="submit" class="submit-btn">
                         <i class="fas fa-heart"></i> DONATE NOW
                     </button>
 
+                    <!-- Secure Payment Notice -->
                     <div class="secure-payment">
                         <i class="fas fa-lock"></i> Secure payment processing
                     </div>
                 </form>
             </div>
+
 
             <!-- RIGHT SIDE: Pet Pictures and Buttons -->
             <div class="media-side">

@@ -1,5 +1,8 @@
 <x-customer-layout>
 
+    @section('title', 'Adopt a Pet - Pawmilya')
+
+
     @push('styles')
         @vite(['resources/css/adopt.css', 'resources/css/about.css'])
     @endpush
@@ -25,7 +28,7 @@
                     <div class="pet-info">
                         <h3>Chromeranz</h3>
                         <p><i class="fas fa-birthday-cake"></i> 2 years old</p>
-                        <a href="/Webpages/pet.html">
+                        <a href="{{ route('client.specific-pet') }}">
                             <button class="btn btn-primary">Meet Me</button>
                         </a>
 

@@ -1,5 +1,7 @@
 <x-customer-layout>
 
+    @section('title', 'Rehome Your Pet - Pawmilya')
+
     @push('styles')
         @vite(['resources/css/rehome.css', 'resources/css/about.css'])
     @endpush
@@ -75,7 +77,7 @@
                 <section class="request-section">
                     <h2>Begin Rehoming Process</h2>
                     <p>Our compassionate team will guide you every step of the way</p>
-                    <a href="/Webpages/rehomingform.html" class="rehome-btn">FILL OUT NOW</a>
+                    <a href="{{ route('client.rehome-form') }}" class="rehome-btn">FILL OUT NOW</a>
                 </section>
             </div>
         </div>
