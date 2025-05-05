@@ -50,6 +50,13 @@ body {
 
 }
 
+.form-group h4.form-label {
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--gray);
+
+}
+
 .donation-layout {
     display: flex;
     max-width: 1400px;
@@ -193,7 +200,8 @@ body {
 
 .form-group {
     display: flex;
-    gap: 15px;
+    flex-direction: column;
+    margin-bottom: 10px;
 }
 
 .form-group input {
@@ -411,6 +419,11 @@ body {
 
 .update-buttons .extra-btn {
     flex: 1;
+}
+
+.rescued-pets {
+    padding: 400px;
+    margin-top: 50px !important;
 }
 
 /* Footer */

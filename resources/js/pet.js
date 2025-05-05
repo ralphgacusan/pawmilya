@@ -23,35 +23,9 @@ document.querySelectorAll('.pet-tab').forEach(tab => {
     });
 });
 
-// Filter form functionality
-document.getElementById('petFilterForm').addEventListener('submit', function (e) {
-    e.preventDefault();
 
-    const petType = document.getElementById('petType').value;
-    const breed = document.getElementById('breed').value;
-    const age = document.getElementById('age').value;
-    const gender = document.getElementById('gender').value;
-    const size = document.getElementById('size').value;
-    const specialNeeds = document.getElementById('special-needs').value;
 
-    const pets = document.querySelectorAll('.pet-card');
 
-    pets.forEach(pet => {
-        const matchesType = petType === 'all' || pet.getAttribute('data-type') === petType;
-        const matchesBreed = breed === 'all' || pet.getAttribute('data-breed') === breed;
-        const matchesAge = age === 'all' || pet.getAttribute('data-age') === age;
-        const matchesGender = gender === 'all' || pet.getAttribute('data-gender') === gender;
-        const matchesSize = size === 'all' || pet.getAttribute('data-size') === size;
-        const matchesSpecial = specialNeeds === 'all' ||
-            (specialNeeds === 'yes' && pet.getAttribute('data-special') === 'yes');
-
-        if (matchesType && matchesBreed && matchesAge && matchesGender && matchesSize && matchesSpecial) {
-            pet.style.display = 'block';
-        } else {
-            pet.style.display = 'none';
-        }
-    });
-});
 
 // View details functionality
 document.querySelectorAll('.view-details').forEach(button => {

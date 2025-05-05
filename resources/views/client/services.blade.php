@@ -4,7 +4,7 @@
 
 
     @push('styles')
-        @vite(['resources/css/service.css', 'resources/css/about.css'])
+        @vite(['resources/css/service.css', 'resources/css/about.css', 'resources/js/service.js'])
     @endpush
 
 
@@ -26,113 +26,34 @@
             </div>
 
             <div class="services-grid">
-                <!-- Grooming Service -->
-                <div class="service-card">
-                    <div class="card-body">
-                        <div class="service-icon">
-                            <img src="/Asset/groom.webp" alt="Grooming">
+                <!-- Services -->
+                @foreach ($services as $service)
+                    <div class="service-card" data-name="{{ $service->name }}" data-schedule="{{ $service->schedule }}"
+                        data-duration="{{ $service->duration }}" data-description="{{ $service->description }}"
+                        data-price="{{ $service->price }}" data-image="{{ $service->image }}">
+                        <div class="service-image">
+                            <!-- Display the image dynamically from the database -->
+                            <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }} Image">
                         </div>
-                        <h3>Professional Grooming</h3>
-                        <ul>
-                            <li>Bath & blow dry</li>
-                            <li>Haircut & styling</li>
-                            <li>Nail trimming</li>
-                            <li>Ear cleaning</li>
-                            <li>Teeth brushing</li>
-                        </ul>
-                    </div>
-                    <a href="#" class="service-btn">Book Now</a>
-                </div>
-
-                <!-- Health Checkup -->
-                <div class="service-card">
-                    <div class="card-body">
-                        <div class="service-icon">
-                            <img src="/Asset/checkup.webp" alt="Health Checkup">
+                        <div class="service-info">
+                            <h3>{{ $service->name }}</h3>
+                            <p><i class="fas fa-clock"></i> {{ $service->schedule }}</p>
+                            <p><i class="fas fa-stopwatch"></i> {{ $service->duration }} minutes</p>
+                            <div class="tags">
+                                <span class="price-tag">Php {{ number_format($service->price, 2) }}</span>
+                            </div>
+                            <!-- Description, Price, and Additional Info in the card -->
+                            <div class="service-details">
+                                <div class="detail-row">
+                                    <div class="detail-value">{{ ucfirst($service->description) }}</div>
+                                </div>
+                            </div>
+                            <a href="{{ route('client.service-form', ['id' => $service->service_id]) }}">
+                                <button class="btn btn-primary book-now">Book Now</button>
+                            </a>
                         </div>
-                        <h3>Health Checkups</h3>
-                        <ul>
-                            <li>Comprehensive physical exams</li>
-                            <li>Vaccinations</li>
-                            <li>Parasite screening</li>
-                            <li>Senior pet wellness</li>
-                            <li>Nutrition counseling</li>
-                        </ul>
                     </div>
-                    <a href="#" class="service-btn">Schedule Appointment</a>
-                </div>
-
-                <!-- Training -->
-                <div class="service-card">
-                    <div class="card-body">
-                        <div class="service-icon">
-                            <img src="/Asset/train.webp" alt="Training">
-                        </div>
-                        <h3>Obedience Training</h3>
-                        <ul>
-                            <li>Puppy kindergarten</li>
-                            <li>Basic obedience</li>
-                            <li>Behavior modification</li>
-                            <li>Potty training</li>
-                            <li>Socialization classes</li>
-                        </ul>
-                    </div>
-                    <a href="#" class="service-btn">Learn More</a>
-                </div>
-
-                <!-- Spay/Neuter -->
-                <div class="service-card">
-                    <div class="card-body">
-                        <div class="service-icon">
-                            <img src="/Asset/neuter.jpg" alt="Spay/Neuter">
-                        </div>
-                        <h3>Spay & Neuter</h3>
-                        <ul>
-                            <li>Safe surgical procedures</li>
-                            <li>Pre-op blood work</li>
-                            <li>Pain management</li>
-                            <li>Recovery monitoring</li>
-                            <li>Post-op care instructions</li>
-                        </ul>
-                    </div>
-                    <a href="#" class="service-btn">Get Details</a>
-                </div>
-
-                <!-- Deworming -->
-                <div class="service-card">
-                    <div class="card-body">
-                        <div class="service-icon">
-                            <img src="/Asset/deworm.webp" alt="Deworming">
-                        </div>
-                        <h3>Deworming Treatments</h3>
-                        <ul>
-                            <li>Intestinal parasite screening</li>
-                            <li>Comprehensive deworming</li>
-                            <li>Preventative medications</li>
-                            <li>Fecal testing</li>
-                            <li>Follow-up care</li>
-                        </ul>
-                    </div>
-                    <a href="#" class="service-btn">View Options</a>
-                </div>
-
-                <!-- Other Services -->
-                <div class="service-card">
-                    <div class="card-body">
-                        <div class="service-icon">
-                            <img src="/Asset/add.png" alt="Other Services">
-                        </div>
-                        <h3>Additional Services</h3>
-                        <ul>
-                            <li>Microchipping</li>
-                            <li>Dental cleaning</li>
-                            <li>Pet boarding</li>
-                            <li>Emergency care</li>
-                            <li>Specialty referrals</li>
-                        </ul>
-                    </div>
-                    <a href="#" class="service-btn">Explore All</a>
-                </div>
+                @endforeach
             </div>
 
 

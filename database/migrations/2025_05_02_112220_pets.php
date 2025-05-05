@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('vaccination_status')->nullable();
             $table->text('existing_conditions')->nullable();
             $table->text('description');
+            $table->string('status')->nullable();
             $table->string('image'); // path to pet photo
             $table->timestamps();
         });

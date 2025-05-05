@@ -304,11 +304,61 @@ p {
     flex-wrap: wrap;
     gap: 20px;
     margin-bottom: 15px;
+
+
 }
+
+.pet-filter .filter-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.pet-filter .filter-group {
+    flex: 1;
+    /* This will make the filter fields take equal width by default */
+    margin-right: 10px;
+    /* Optional, adjust space between elements */
+}
+
+.pet-filter .filter-row:nth-child(2) .filter-group {
+    flex: 0;
+    /* Remove flex-grow so that fields in the second row take only their content width */
+    margin-right: 0;
+    /* Remove right margin for the last filter-group */
+}
+
+.pet-filter .filter-row:nth-child(2) {
+    justify-content: center;
+    /* Centers the filter groups in the second row */
+}
+
+.pet-filter .filter-row:nth-child(2) .filter-group {
+    margin: 0 15px;
+    /* Optional: add space between the second-row filter fields */
+    width: 440px;
+    /* Set width to make fields roughly twice their current size */
+}
+
+/* Optional: adjust individual filter fields if needed */
+.pet-filter .filter-row:nth-child(2) .filter-group:first-child {
+    width: 450px;
+    /* Adjust first input field */
+}
+
+.pet-filter .filter-row:nth-child(2) .filter-group:last-child {
+    width: 450px;
+    /* Adjust second input field */
+}
+
+
+
+
+
 
 .filter-group {
     flex: 1;
-    min-width: 200px;
+    min-width: 250px;
 }
 
 .filter-group label {
@@ -666,4 +716,46 @@ p {
         width: 100%;
         margin-bottom: 5px;
     }
+}
+
+/* pagination */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a {
+    display: block;
+    padding: 8px 15px;
+    background-color: var(--primary-light);
+    color: white;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: var(--primary-dark);
+}
+
+.pagination .active a {
+    background-color: var(--primary);
+    color: white;
+}
+
+.pagination .disabled {
+    pointer-events: none;
+    opacity: 0.5;
 }

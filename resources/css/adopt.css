@@ -589,3 +589,240 @@ img {
 .pet-details.active {
     display: block;
 }
+
+
+/* pagination */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a {
+    display: block;
+    padding: 8px 15px;
+    background-color: var(--primary-light);
+    color: white;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: var(--primary-dark);
+}
+
+.pagination .active a {
+    background-color: var(--primary);
+    color: white;
+}
+
+.pagination .disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+
+
+
+/*Adoption FAQ*/
+.process-section {
+    background-color: #f9f9f9;
+    padding: 4rem 5%;
+    margin-top: 3rem;
+}
+
+.process-section h2 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.process-section h2 i {
+    color: #FF914D;
+}
+
+.process-section h3 {
+    color: #555;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.step {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.step:hover {
+    transform: translateY(-5px);
+}
+
+.step-number {
+    background-color: #FF914D;
+    /* Accent color */
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: bold;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.step-content h4 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.step-content p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+/*Requirements */
+.requirements-section {
+    background-color: #fdfdfd;
+    padding: 4rem 5%;
+    margin-top: 3rem;
+}
+
+.requirements-section h2 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.requirements-section h2 i {
+    color: #FF914D;
+    /* Icon color */
+}
+
+.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.requirement-card {
+    background-color: #fff;
+    padding: 2rem 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.requirement-card:hover {
+    transform: translateY(-5px);
+}
+
+.requirement-card i {
+    font-size: 2rem;
+    color: #FF914D;
+    /* Accent color for card icons */
+    margin-bottom: 1rem;
+}
+
+.requirement-card h4 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.requirement-card p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* Success Stories */
+
+.stories-section {
+    background-color: #fff;
+    padding: 4rem 5%;
+    margin-top: 3rem;
+}
+
+.stories-section h2 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stories-section h2 i {
+    color: #FF914D;
+    /* Heart icon color */
+}
+
+.story-card {
+    background-color: #fef7f4;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.story-card:hover {
+    transform: translateY(-5px);
+}
+
+.story-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.story-content p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.btn.btn-secondary {
+    background-color: #FF914D;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.btn.btn-secondary:hover {
+    background-color: #e6762d;
+}

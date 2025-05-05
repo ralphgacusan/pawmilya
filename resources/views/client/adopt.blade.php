@@ -20,45 +20,50 @@
         <div class="container">
             <h2><i class="fas fa-paw"></i> Available Pets</h2>
             <div class="pets-grid">
-                <div class="pet-card">
-                    <div class="pet-image">
-                        <img src="/Asset/pet1.png" alt="Chromeranz">
-                        <span class="pet-badge">Available</span>
-                    </div>
-                    <div class="pet-info">
-                        <h3>Chromeranz</h3>
-                        <p><i class="fas fa-birthday-cake"></i> 2 years old</p>
-                        <a href="{{ route('client.specific-pet') }}">
-                            <button class="btn btn-primary">Meet Me</button>
-                        </a>
+                @foreach ($pets as $pet)
+                    <div class="pet-card">
+                        <div class="pet-image">
+                            <img src="{{ asset('storage/' . $pet->image) }}" alt="{{ $pet->name }}">
+                            <span class="pet-badge">Available</span>
+                        </div>
+                        <div class="pet-info">
+                            <h3>{{ $pet->name }}</h3>
+                            <p>{{ $pet->type }} - {{ $pet->breed }}</p>
 
-                    </div>
-                </div>
+                            <a href="{{ route('client.adopt-form', ['id' => $pet->id]) }}">
+                                <button class="btn btn-secondary">Adopt Me</button>
+                            </a>
 
-                <div class="pet-card">
-                    <div class="pet-image">
-                        <img src="/Asset/pet2.png" alt="Isagi Yoichi">
-                        <span class="pet-badge">Available</span>
+                        </div>
                     </div>
-                    <div class="pet-info">
-                        <h3>Isagi Yoichi</h3>
-                        <p><i class="fas fa-birthday-cake"></i> 1 year old</p>
-                        <button class="btn btn-primary">Meet Me</button>
-                    </div>
-                </div>
+                @endforeach
 
-                <div class="pet-card">
-                    <div class="pet-image">
-                        <img src="/Asset/pet3.png" alt="Hortal">
-                        <span class="pet-badge">Available</span>
-                    </div>
-                    <div class="pet-info">
-                        <h3>Hortal</h3>
-                        <p><i class="fas fa-birthday-cake"></i> 3 years old</p>
-                        <button class="btn btn-primary">Meet Me</button>
-                    </div>
-                </div>
+
             </div>
+            <!-- Pagination links -->
+            @if ($pets->hasPages())
+                <div class="pagination-container">
+                    <ul class="pagination">
+                        @if ($pets->onFirstPage())
+                            <li class="disabled"><span>&laquo;</span></li>
+                        @else
+                            <li><a href="{{ $pets->previousPageUrl() }}">&laquo;</a></li>
+                        @endif
+
+                        @foreach ($pets->getUrlRange(1, $pets->lastPage()) as $page => $url)
+                            <li class="{{ $page == $pets->currentPage() ? 'active' : '' }}">
+                                <a href="{{ $url }}">{{ $page }}</a>
+                            </li>
+                        @endforeach
+
+                        @if ($pets->hasMorePages())
+                            <li><a href="{{ $pets->nextPageUrl() }}">&raquo;</a></li>
+                        @else
+                            <li class="disabled"><span>&raquo;</span></li>
+                        @endif
+                    </ul>
+                </div>
+            @endif
         </div>
     </section>
 
@@ -159,82 +164,6 @@
                     <a href="#" class="btn btn-secondary">Read Story</a>
                 </div>
 
-            </div>
-        </div>
-    </section>
-
-    <!-- Meet & Greet Section -->
-    <section class="section meet-section">
-        <div class="container">
-            <h2><i class="fas fa-calendar-alt"></i> Schedule a Meet & Greet</h2>
-            <div class="meet-content">
-                <div class="meet-info">
-                    <h3>Visit Pawmilya</h3>
-                    <p>Come meet our animals in person and find your perfect match!</p>
-
-                    <div class="contact-method">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Call Us</h4>
-                            <p>09052162094</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-method">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email Us</h4>
-                            <p>contact@pawnniya.org</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="meet-form">
-                    <h3>Schedule Your Visit</h3>
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="date">Preferred Date</label>
-                            <input type="date" id="date" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Schedule Visit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Pawmilya Section -->
-    <section class="section about-section">
-        <div class="container">
-            <h2><i class="fas fa-info-circle"></i> About Pawmilya</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Pawmilya Adoption Center<br>
-                        1234 Compassion Blvd.<br>
-                        Suite 101<br>
-                        Brightville, NY 10234</p>
-
-                    <p><strong>Phone:</strong> (555) 987-6543<br>
-                        <strong>Email:</strong> contact@pawnniya.org
-                    </p>
-
-                    <p>We are a Non-Profit Government funded organization that rehabilitates stray and abandoned animals
-                        in the Philippines. We also promote adoption and spay/neuter programs for responsible pet
-                        ownership.</p>
-
-                    <a href="/Webpages/about.html" class="btn btn-outline">Learn more about us</a>
-                </div>
-                <div class="about-image">
-                    <img src="/Asset/logo.jpg" alt="Pawmilya shelter">
-                </div>
             </div>
         </div>
     </section>

@@ -3,7 +3,7 @@
     @section('title', 'Rehome Your Pet - Pawmilya')
 
     @push('styles')
-        @vite(['resources/css/rehome.css', 'resources/css/about.css'])
+        @vite(['resources/css/rehome.css', 'resources/css/app.css'])
     @endpush
 
 
@@ -16,19 +16,19 @@
         <section class="pet-gallery">
             <div class="gallery-container">
                 <div class="gallery-item">
-                    <img src="/Asset/hug.jpg" alt="Happy dog in new home">
+                    <img src="{{ asset('imgs/hug.jpg') }}" alt="Happy dog in new home">
                     <p>Buddy found his forever family</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/Asset/hug2.png" alt="Cat being cuddled">
+                    <img src="{{ asset('imgs/hug2.png') }}" alt="Cat being cuddled">
                     <p>Whiskers adjusted beautifully</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/Asset/hug3.webp" alt="Rabbit with new owner">
+                    <img src="{{ asset('imgs/hug3.webp') }}" alt="Rabbit with new owner">
                     <p>Thumper loves his new space</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/Asset/hug4.webp" alt="Bird perching happily">
+                    <img src="{{ asset('imgs/hug4.webp') }}" alt="Bird perching happily">
                     <p>Sky is thriving in her fur mom</p>
                 </div>
             </div>

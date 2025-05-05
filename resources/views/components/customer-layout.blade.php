@@ -11,16 +11,20 @@
     <link rel="icon" href="{{ asset('imgs/paw.png') }}" type="image/x-icon">
     @vite(['resources/css/about.css', 'resources/js/pet.js'])
     @stack('styles')
+    @yield('styles') <!-- This will allow child layout to inject styles -->
 </head>
 
 <body>
     <!-- Header with Navigation -->
     <header class="main-header">
         <div class="container">
-            <div class="logo">
-                <img src="{{ asset('imgs/logo.jpg') }}" alt="Pawmilya Logo">
-                <span>Pawmilya</span>
-            </div>
+            <a href="{{ route('client.home') }}" style="text-decoration: none;">
+                <div class="logo">
+                    <img src="{{ asset('imgs/logo.jpg') }}" alt="Pawmilya Logo">
+                    <span>Pawmilya</span>
+                </div>
+            </a>
+
             <nav class="main-nav">
                 <ul>
                     <li>
@@ -73,7 +77,7 @@
                             <div class="dropdown-menu">
                                 @auth
                                     {{-- user account page --}}
-                                    <a href="/">View Account</a>
+                                    <a href="{{ route('auth.user-profile') }}">View Account</a>
 
                                     <form method="POST" action="{{ route('auth.logout') }}">
                                         @csrf
@@ -97,8 +101,27 @@
             </button>
         </div>
     </header>
+    <!-- Notification System -->
+    <div id="notification-container"></div>
+
+    @if (session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                showNotification(@json(session('success')), 'success');
+            });
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                showNotification(@json(session('error')), 'error');
+            });
+        </script>
+    @endif
 
     <main class="main-container">
+
         {{ $slot }}
     </main>
 
@@ -107,28 +130,29 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-about">
-                    <div class="footer-logo">
-                        <img src="logo.jpg" alt="Pawmilya Logo">
-                        <span>Pawmilya</span>
-                    </div>
+                    <a href="{{ route('client.home') }}" style="text-decoration: none; color: inherit;"
+                        onmouseover="this.style.color='inherit'" onmousedown="this.style.color='inherit'">
+                        <div class="footer-logo">
+                            <img src="{{ asset('imgs/logo.jpg') }}" alt="Pawmilya Logo">
+                            <span>Pawmilya</span>
+                        </div>
+                    </a>
                     <p>We are a non-profit organization dedicated to rescuing and rehabilitating stray and abandoned
                         animals in the Philippines. Our goal is to promote adoption and responsible pet care through
                         education and outreach programs.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    <div class="social-links"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a
+                            href="#"><i class="fab fa-instagram"></i></a> <a href="#"><i
+                                class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 <div class="footer-links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#">Available Pets</a></li>
-                        <li><a href="#">Adoption Process</a></li>
-                        <li><a href="#">Foster Program</a></li>
-                        <li><a href="#">Volunteer</a></li>
-                        <li><a href="#">Events</a></li>
+                        <li><a href="{{ route('client.pets') }}">Available Pets</a></li>
+                        <li><a href="{{ route('client.adopt') }}">Adoption Process</a></li>
+                        <li><a href="{{ route('client.rehome') }}">Rehoming Proccess</a></li>
+                        <li><a href="{{ route('client.donation') }}">How to Donate?</a></li>
+                        <li><a href="{{ route('client.services') }}">Services</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
@@ -140,22 +164,36 @@
                 <div class="footer-newsletter">
                     <h3>Stay Updated</h3>
                     <p>Subscribe to our newsletter for the latest updates</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Your email address">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
+                    <form class="newsletter-form" action="{{ route('client.home') }}"> <input type="email"
+                            placeholder="Your email address"> <button type="submit"><i
+                                class="fas fa-paper-plane"></i></button> </form>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2023 Pawmilya. All rights reserved.</p>
-                <div class="legal-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                <div class="legal-links"> <a href="{{ route('client.about') }}">Privacy Policy</a> <a
+                        href="{{ route('client.about') }}">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
+    <script>
+        function showNotification(message, type = 'success', duration = 6000) {
+            const container = document.getElementById('notification-container');
+            const notif = document.createElement('div');
+            notif.className = `notification ${type}`;
+            notif.innerHTML = `
+                <span>${message}</span>
+                <span class="close-btn" onclick="this.parentElement.remove()">×</span>
+            `;
 
+            container.appendChild(notif);
+
+            setTimeout(() => {
+                notif.remove();
+            }, duration);
+        }
+    </script>
 </body>
 
 </html>

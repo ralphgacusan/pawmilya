@@ -27,6 +27,7 @@ class Pet extends Model
         'vaccination_status',
         'existing_conditions',
         'description',
+        'status',
         'image',
     ];
 

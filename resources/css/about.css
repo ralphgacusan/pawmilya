@@ -606,7 +606,6 @@ body {
     color: white;
 }
 
-
 /* Responsive Design */
 @media (max-width: 992px) {
     .main-header .container {
@@ -699,5 +698,55 @@ body {
     .email-subscribe button {
         margin-top: var(--space-xs);
         padding: var(--space-sm);
+    }
+}
+
+#notification-container {
+    position: fixed;
+    top: 70px;
+    /* adjust depending on your navbar height */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+}
+
+.notification {
+    min-width: 650px;
+    max-width: 90%;
+    margin: 10px auto;
+    padding: 15px 20px;
+    border-radius: 12px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    animation: slideDown 0.3s ease;
+}
+
+.notification.success {
+    background-color: #FFA66D;
+}
+
+.notification.error {
+    background-color: #f44336;
+}
+
+.notification .close-btn {
+    cursor: pointer;
+    font-weight: bold;
+    padding-left: 15px;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) translateX(-50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) translateX(-50%);
     }
 }

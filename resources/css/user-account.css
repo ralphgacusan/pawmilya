@@ -1,0 +1,334 @@
+/* General Styles */
+:root {
+    --primary: #E5A02D;
+    --primary-dark: #C78B24;
+    --primary-light: #F0B755;
+    --secondary: #4A8FE7;
+    --accent: #ffffff;
+    --light: #F8F5F0;
+    --dark: #2D2A26;
+    --gray: #7D7D7D;
+    --light-gray: #F0EDE8;
+    --border: #e0e0e0;
+    --success: #4CAF50;
+    --error: #F44336;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--light);
+    color: var(--dark);
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Account Container */
+.account-container {
+    width: 100%;
+    max-width: 900px;
+    background-color: var(--accent);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.account-header {
+    padding: 25px 30px;
+    background-color: var(--primary);
+    color: white;
+}
+
+.account-header h1 {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.account-header p {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+
+.account-content {
+    padding: 30px;
+}
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    align-items: center;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--border);
+}
+
+.avatar-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--light-gray);
+}
+
+.avatar-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-upload,
+.btn-remove {
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: none;
+}
+
+.btn-upload {
+    background-color: var(--secondary);
+    color: white;
+}
+
+.btn-remove {
+    background-color: var(--light-gray);
+    color: var(--dark);
+}
+
+.basic-info h2 {
+    font-size: 22px;
+    margin-bottom: 5px;
+    color: var(--dark);
+}
+
+.user-id {
+    font-size: 14px;
+    color: var(--gray);
+    margin-bottom: 10px;
+}
+
+.account-status {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.status-badge.active {
+    background-color: var(--success);
+    color: white;
+}
+
+.member-since {
+    font-size: 13px;
+    color: var(--gray);
+}
+
+/* Details Section */
+.details-section {
+    margin-bottom: 30px;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.detail-group {
+    margin-bottom: 15px;
+}
+
+.detail-group label {
+    display: block;
+    font-size: 13px;
+    color: var(--gray);
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.detail-group .detail-value {
+    padding: 10px 15px;
+    background-color: var(--light-gray);
+    border-radius: 6px;
+    font-size: 15px;
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+}
+
+.detail-group.full-width {
+    grid-column: span 2;
+}
+
+/* Account Actions */
+.account-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-edit {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-settings {
+    background-color: var(--error);
+    color: var(--light);
+}
+
+.btn-settings:hover {
+    background-color: #942e2e;
+}
+
+.header-link {
+    position: relative;
+    /* Changed from absolute for better flex layout handling */
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    color: #000;
+    background: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+}
+
+.header-link:hover {
+    background: #f0f0f0;
+    color: #FF914D;
+}
+
+.header-actions form {
+    display: inline;
+}
+
+button {
+    background-color: #f0f0f0;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+
+    .profile-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-group.full-width {
+        grid-column: span 1;
+    }
+
+    .account-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .account-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        justify-content: center;
+    }
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background-color: var(--light-gray);
+    font-size: 15px;
+    color: var(--dark);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(229, 160, 45, 0.2);
+    outline: none;
+}
+
+.message-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    /* Adjust this width based on your layout */
+    z-index: 10;
+    /* Ensure the overlay stays on top of the header */
+    text-align: center;
+}

@@ -12,110 +12,161 @@
             <h1><i class="fas fa-paw"></i> Find Your Perfect Companion</h1>
             <p class="subtitle">Browse our available dogs and cats waiting for their forever homes</p>
 
-            <!-- Pet Type Tabs -->
-            <div class="pet-tabs">
-                <div class="pet-tab active" data-tab="all">All Pets</div>
-                <div class="pet-tab" data-tab="dogs">Dogs</div>
-                <div class="pet-tab" data-tab="cats">Cats</div>
-                <div class="pet-tab" data-tab="special">Exotic Pets</div>
-                <div class="pet-tab" data-tab="special">Special Needs</div>
-            </div>
+
 
             <!-- Filter Form -->
             <div class="pet-filter">
                 <h3><i class="fas fa-filter"></i> Filter Pets</h3>
-                <form id="petFilterForm">
+                <form id="petFilterForm" method="GET" action="{{ route('client.pets') }}">
                     <div class="filter-row">
                         <div class="filter-group">
                             <label for="petType">Pet Type</label>
                             <select id="petType" name="petType">
-                                <option value="all">All Pets</option>
-                                <option value="dog">Dogs</option>
-                                <option value="cat">Cats</option>
-                                <option value="cat">Exotic</option>
+                                <option value="all"
+                                    {{ old('petType', request('petType')) == 'all' ? 'selected' : '' }}>All Pets
+                                </option>
+                                <option value="dog"
+                                    {{ old('petType', request('petType')) == 'dog' ? 'selected' : '' }}>Dogs</option>
+                                <option value="cat"
+                                    {{ old('petType', request('petType')) == 'cat' ? 'selected' : '' }}>Cats</option>
+                                <option value="exotic"
+                                    {{ old('petType', request('petType')) == 'exotic' ? 'selected' : '' }}>Exotic
+                                </option>
+                                <option value="special_needs"
+                                    {{ old('petType', request('petType')) == 'special_needs' ? 'selected' : '' }}>
+                                    Special Needs
+                                </option>
                             </select>
                         </div>
 
                         <div class="filter-group">
                             <label for="breed">Breed</label>
                             <select id="breed" name="breed">
-                                <option value="all">All Breeds</option>
+                                <option value="all" {{ old('breed', request('breed')) == 'all' ? 'selected' : '' }}>
+                                    All Breeds</option>
                                 <optgroup label="Dogs" id="dog-breeds">
-                                    <option value="labrador">Labrador</option>
-                                    <option value="poodle">Poodle</option>
-                                    <option value="beagle">Beagle</option>
-                                    <option value="bulldog">Bulldog</option>
-                                    <option value="shih-tzu">Shih Tzu</option>
-                                    <option value="german-shepherd">German Shepherd</option>
-                                    <option value="golden-retriever">Golden Retriever</option>
+                                    <option value="labrador"
+                                        {{ old('breed', request('breed')) == 'labrador' ? 'selected' : '' }}>Labrador
+                                    </option>
+                                    <option value="poodle"
+                                        {{ old('breed', request('breed')) == 'poodle' ? 'selected' : '' }}>Poodle
+                                    </option>
+                                    <option value="beagle"
+                                        {{ old('breed', request('breed')) == 'beagle' ? 'selected' : '' }}>Beagle
+                                    </option>
+                                    <option value="bulldog"
+                                        {{ old('breed', request('breed')) == 'bulldog' ? 'selected' : '' }}>Bulldog
+                                    </option>
+                                    <option value="shih_tzu"
+                                        {{ old('breed', request('breed')) == 'shih_tzu' ? 'selected' : '' }}>Shih Tzu
+                                    </option>
+                                    <option value="german_shepherd"
+                                        {{ old('breed', request('breed')) == 'german_shepherd' ? 'selected' : '' }}>
+                                        German Shepherd</option>
+                                    <option value="golden_retriever"
+                                        {{ old('breed', request('breed')) == 'golden_retriever' ? 'selected' : '' }}>
+                                        Golden Retriever</option>
                                 </optgroup>
                                 <optgroup label="Cats" id="cat-breeds">
-                                    <option value="persian">Persian</option>
-                                    <option value="siamese">Siamese</option>
-                                    <option value="maine-coon">Maine Coon</option>
-                                    <option value="bengal">Bengal</option>
-                                    <option value="ragdoll">Ragdoll</option>
-                                    <option value="scottish-fold">Scottish Fold</option>
-                                    <option value="british-shorthair">British Shorthair</option>
+                                    <option value="persian"
+                                        {{ old('breed', request('breed')) == 'persian' ? 'selected' : '' }}>Persian
+                                    </option>
+                                    <option value="siamese"
+                                        {{ old('breed', request('breed')) == 'siamese' ? 'selected' : '' }}>Siamese
+                                    </option>
+                                    <option value="maine_coon"
+                                        {{ old('breed', request('breed')) == 'maine_coon' ? 'selected' : '' }}>Maine
+                                        Coon</option>
+                                    <option value="bengal"
+                                        {{ old('breed', request('breed')) == 'bengal' ? 'selected' : '' }}>Bengal
+                                    </option>
+                                    <option value="ragdoll"
+                                        {{ old('breed', request('breed')) == 'ragdoll' ? 'selected' : '' }}>Ragdoll
+                                    </option>
+                                    <option value="scottish_fold"
+                                        {{ old('breed', request('breed')) == 'scottish_fold' ? 'selected' : '' }}>
+                                        Scottish Fold</option>
+                                    <option value="british_shorthair"
+                                        {{ old('breed', request('breed')) == 'british_shorthair' ? 'selected' : '' }}>
+                                        British Shorthair</option>
                                 </optgroup>
                                 <optgroup label="Exotic Pets" id="exotic-pets">
-                                    <option value="macaw">Macaw</option>
-                                    <option value="ball-python">Ball Python</option>
-                                    <option value="leopard-gecko">Leopard Gecko</option>
-                                    <option value="iguana">Iguana</option>
-                                    <option value="chameleon">Chameleon</option>
-                                    <option value="hedgehog">Hedgehog</option>
-                                    <option value="fennec-fox">Fennec Fox</option>
-                                    <option value="sugar-glider">Sugar Glider</option>
-                                    <option value="turtle">Turtle</option>
-                                    <option value="axolotl">Axolotl</option>
-                                    <option value="african-grey-parrot">African Grey Parrot</option>
-                                    <option value="ferret">Ferret</option>
-                                    <option value="exotic-fish">Exotic Fish</option>
+                                    <option value="macaw"
+                                        {{ old('breed', request('breed')) == 'macaw' ? 'selected' : '' }}>Macaw
+                                    </option>
+                                    <option value="ball_python"
+                                        {{ old('breed', request('breed')) == 'ball_python' ? 'selected' : '' }}>Ball
+                                        Python</option>
+                                    <option value="leopard_gecko"
+                                        {{ old('breed', request('breed')) == 'leopard_gecko' ? 'selected' : '' }}>
+                                        Leopard Gecko</option>
+                                    <option value="iguana"
+                                        {{ old('breed', request('breed')) == 'iguana' ? 'selected' : '' }}>Iguana
+                                    </option>
+                                    <option value="chameleon"
+                                        {{ old('breed', request('breed')) == 'chameleon' ? 'selected' : '' }}>Chameleon
+                                    </option>
+                                    <option value="hedgehog"
+                                        {{ old('breed', request('breed')) == 'hedgehog' ? 'selected' : '' }}>Hedgehog
+                                    </option>
+                                    <option value="fennec_fox"
+                                        {{ old('breed', request('breed')) == 'fennec_fox' ? 'selected' : '' }}>Fennec
+                                        Fox</option>
+                                    <option value="sugar_glider"
+                                        {{ old('breed', request('breed')) == 'sugar_glider' ? 'selected' : '' }}>Sugar
+                                        Glider</option>
+                                    <option value="turtle"
+                                        {{ old('breed', request('breed')) == 'turtle' ? 'selected' : '' }}>Turtle
+                                    </option>
+                                    <option value="axolotl"
+                                        {{ old('breed', request('breed')) == 'axolotl' ? 'selected' : '' }}>Axolotl
+                                    </option>
+                                    <option value="african_grey-parrot"
+                                        {{ old('breed', request('breed')) == 'african_grey-parrot' ? 'selected' : '' }}>
+                                        African Grey Parrot</option>
+                                    <option value="ferret"
+                                        {{ old('breed', request('breed')) == 'ferret' ? 'selected' : '' }}>Ferret
+                                    </option>
+                                    <option value="exotic_fish"
+                                        {{ old('breed', request('breed')) == 'exotic_fish' ? 'selected' : '' }}>Exotic
+                                        Fish</option>
                                 </optgroup>
                             </select>
                         </div>
 
-                        <div class="filter-group">
-                            <label for="age">Age</label>
-                            <select id="age" name="age">
-                                <option value="all">Any Age</option>
-                                <option value="puppy-kitten">Puppy/Kitten (0-1 year)</option>
-                                <option value="young">Young (1-3 years)</option>
-                                <option value="adult">Adult (3-8 years)</option>
-                                <option value="senior">Senior (8+ years)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="filter-row">
                         <div class="filter-group">
                             <label for="gender">Gender</label>
                             <select id="gender" name="gender">
-                                <option value="all">Any Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="all"
+                                    {{ old('gender', request('gender')) == 'all' ? 'selected' : '' }}>Any Gender
+                                </option>
+                                <option value="male"
+                                    {{ old('gender', request('gender')) == 'male' ? 'selected' : '' }}>Male</option>
+                                <option value="female"
+                                    {{ old('gender', request('gender')) == 'female' ? 'selected' : '' }}>Female
+                                </option>
                             </select>
                         </div>
 
+                        <!-- New filter group for Oldest and Newest Pets -->
                         <div class="filter-group">
-                            <label for="size">Size (Dogs)</label>
-                            <select id="size" name="size">
-                                <option value="all">Any Size</option>
-                                <option value="small">Small (0-20 lbs)</option>
-                                <option value="medium">Medium (20-50 lbs)</option>
-                                <option value="large">Large (50+ lbs)</option>
+                            <label for="dateAdded">Date Listed for Adoption</label>
+                            <select id="dateAdded" name="dateAdded">
+                                <option value="all"
+                                    {{ old('dateAdded', request('dateAdded')) == 'all' ? 'selected' : '' }}>Any Date
+                                </option>
+                                <option value="oldest"
+                                    {{ old('dateAdded', request('dateAdded')) == 'oldest' ? 'selected' : '' }}>Oldest
+                                    First</option>
+                                <option value="newest"
+                                    {{ old('dateAdded', request('dateAdded')) == 'newest' ? 'selected' : '' }}>Newest
+                                    First</option>
                             </select>
                         </div>
 
-                        <div class="filter-group">
-                            <label for="special-needs">Special Needs</label>
-                            <select id="special-needs" name="special-needs">
-                                <option value="all">All Pets</option>
-                                <option value="yes">Special Needs Only</option>
-                            </select>
-                        </div>
                     </div>
+
+
 
                     <div class="filter-actions">
                         <button type="reset" class="btn btn-outline">Reset</button>
@@ -162,15 +213,19 @@
                                 <div class="detail-value">{{ ucfirst($pet->weight) }} lbs</div>
                             </div>
                             <div class="detail-row">
+                                <div class="detail-label">Date listed for adoption:</div>
+                                <div class="detail-value">{{ ucfirst($pet->created_at->format('F j, Y')) }}</div>
+                            </div>
+                            <div class="detail-row">
                                 <div class="detail-label">Description:</div>
                                 <div class="detail-value">{{ ucfirst($pet->description) }}</div>
                             </div>
 
                             <div class="pets-button-group">
-                                <a href="{{ route('client.adopt-form') }}">
+                                <a href="{{ route('client.adopt-form', ['id' => $pet->id]) }}">
                                     <button class="btn btn-secondary">Apply to Adopt</button>
                                 </a>
-                                <a href="{{ route('client.specific-pet') }}">
+                                <a href="{{ route('client.specific-pet', ['id' => $pet->id]) }}">
                                     <button class="btn btn-primary" data-pet="{{ $pet->id }}">View More</button>
                                 </a>
                             </div>
@@ -181,7 +236,36 @@
                     </div>
                 @endforeach
 
+
+
             </div>
+
+            <!-- Pagination links -->
+            @if ($pets->hasPages())
+                <div class="pagination-container">
+                    <ul class="pagination">
+                        @if ($pets->onFirstPage())
+                            <li class="disabled"><span>&laquo;</span></li>
+                        @else
+                            <li><a href="{{ $pets->previousPageUrl() }}">&laquo;</a></li>
+                        @endif
+
+                        @foreach ($pets->getUrlRange(1, $pets->lastPage()) as $page => $url)
+                            <li class="{{ $page == $pets->currentPage() ? 'active' : '' }}">
+                                <a href="{{ $url }}">{{ $page }}</a>
+                            </li>
+                        @endforeach
+
+                        @if ($pets->hasMorePages())
+                            <li><a href="{{ $pets->nextPageUrl() }}">&raquo;</a></li>
+                        @else
+                            <li class="disabled"><span>&raquo;</span></li>
+                        @endif
+                    </ul>
+                </div>
+            @endif
+
+
         </div>
 
     </section>

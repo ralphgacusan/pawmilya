@@ -89,7 +89,7 @@
     justify-content: space-between;
     /* push button to bottom */
     background-color: var(--white);
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     padding: 2rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -257,6 +257,128 @@
     }
 }
 
-.card-body {
+
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.service-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 350px;
+    margin: 20px auto;
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid #f0f0f0;
+    padding: 0;
+    /* Reset internal padding */
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+}
+
+.service-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.service-card:hover .service-image img {
+    transform: scale(1.05);
+}
+
+.service-info {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
+    padding: 20px;
+    text-align: left;
+}
+
+.service-info h3 {
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+}
+
+.service-info p {
+    color: var(--gray);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+
+.service-info .price-tag {
+    background-color: var(--primary);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.service-details {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-details .detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.service-details .detail-value {
+    color: var(--gray);
+}
+
+/* Button Styling */
+.book-now {
+    margin-top: auto;
+    /* Pushes button to bottom */
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary);
+
+}
+
+.book-now:hover {
+    background-color: var(--white);
+    color: var(--primary);
+}
+
+
+
+.book-now:focus {
+    outline: none;
 }
