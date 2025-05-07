@@ -1,0 +1,230 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Image section */
+.image-section {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    /* Horizontally center the image */
+    align-items: flex-start;
+    /* Align the image to the top */
+    height: 100%;
+    /* Ensure it takes the full height */
+    padding-top: 90px;
+    /* Increase this to move the image further down */
+}
+
+.image-section img {
+    width: 100%;
+    height: auto;
+    /* Keep the aspect ratio intact */
+    object-fit: cover;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-left: 40px;
+    /* Shift the image slightly to the right */
+}
+
+
+
+@media (min-width: 1024px) {
+    .bg-cover {
+        display: block;
+        width: 40%;
+        background-image: url('assets/register-background.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .form-section {
+        width: 60%;
+        padding: 2rem;
+    }
+}
+
+.form-wrapper {
+    max-width: 800px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: black;
+}
+
+p {
+    margin-top: 1rem;
+    color: black;
+}
+
+form {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    /* Increased gap to give enough space */
+}
+
+@media (min-width: 768px) {
+    form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: black;
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-error {
+    position: absolute;
+    bottom: -2px;
+    /* Place it just below the input field */
+    left: 0;
+    color: red;
+    font-size: 0.75rem;
+    line-height: 1;
+    pointer-events: none;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 8px;
+    color: black;
+    background-color: white;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    /* Increased to make room for absolute error */
+}
+
+
+
+
+
+.form-actions {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+}
+
+.center-buttons {
+    display: flex;
+    flex-direction: column;
+    /* Stacks button and link vertically */
+    align-items: center;
+    /* Centers the content horizontally */
+    gap: 10px;
+    /* Adds some space between the button and the link */
+}
+
+.signup {
+    display: flex;
+    justify-content: center;
+}
+
+.signup p {
+    font-size: 14px;
+    /* Adjust as needed */
+}
+
+.signup a {
+    color: #FF914D;
+    /* Theme color for the link */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup a:hover {
+    text-decoration: underline;
+}
+
+button {
+    width: 350px;
+    padding: 0.75rem;
+    background-color: #FF914D;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #db6f2c;
+}
+
+
+
+/* Modal */
+#success-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(17, 24, 39, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.modal-content h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.home-link {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    color: #000;
+    /* Or whatever fits your theme */
+    background: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+}
+
+.home-link:hover {
+    background: #f0f0f0;
+    color: #FF914D;
+}

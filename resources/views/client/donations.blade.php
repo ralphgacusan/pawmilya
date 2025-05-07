@@ -4,7 +4,8 @@
 
 
     @push('styles')
-        @vite(['resources/css/donate.css', 'resources/css/about.css'])
+        <link rel="stylesheet" href="{{ asset('css/donate.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/about.css') }}">
     @endpush
 
 

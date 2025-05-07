@@ -3,7 +3,8 @@
     @section('title', 'Rehome Your Pet - Pawmilya')
 
     @push('styles')
-        @vite(['resources/css/rehome.css', 'resources/css/app.css'])
+        <link rel="stylesheet" href="{{ asset('css/rehome.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @endpush
 
 

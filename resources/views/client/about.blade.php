@@ -3,7 +3,7 @@
     @section('title', 'About Us - Pawmilya')
 
     @push('styles')
-        @vite(['resources/css/about.css'])
+        <link rel="stylesheet" href="{{ asset('css/about.css') }}">
     @endpush
 
 
@@ -68,7 +68,7 @@
                 <div class="team-grid">
                     <div class="team-member">
                         <div class="member-photo">
-                            <img src="/Asset/jarl.jpg" alt="Founder 1">
+                            <img src="{{ asset('imgs/jarl.jpg') }}" alt="Founder 1">
                             <div class="social-links">
                                 <a href="#"><i class="fab fa-linkedin"></i></a>
                                 <a href="#"><i class="fab fa-twitter"></i></a>
@@ -80,7 +80,7 @@
 
                     <div class="team-member">
                         <div class="member-photo">
-                            <img src="/Asset/ralph.jpg" alt="Founder 2">
+                            <img src="{{ asset('imgs/ralph.jpg') }}" alt="Founder 2">
                             <div class="social-links">
                                 <a href="#"><i class="fab fa-linkedin"></i></a>
                                 <a href="#"><i class="fab fa-twitter"></i></a>
@@ -92,7 +92,7 @@
 
                     <div class="team-member">
                         <div class="member-photo">
-                            <img src="/Asset/oriel.jpg" alt="Founder 3">
+                            <img src="{{ asset('imgs/oriel.jpg') }}" alt="Founder 3">
                             <div class="social-links">
                                 <a href="#"><i class="fab fa-linkedin"></i></a>
                                 <a href="#"><i class="fab fa-twitter"></i></a>
@@ -104,7 +104,7 @@
 
                     <div class="team-member">
                         <div class="member-photo">
-                            <img src="/Asset/zai.jpg" alt="Founder 4">
+                            <img src="{{ asset('imgs/zai.jpg') }}" alt="Founder 4">
                             <div class="social-links">
                                 <a href="#"><i class="fab fa-linkedin"></i></a>
                                 <a href="#"><i class="fab fa-twitter"></i></a>
@@ -116,7 +116,7 @@
 
                     <div class="team-member">
                         <div class="member-photo">
-                            <img src="/Asset/king.jpg" alt="Founder 5">
+                            <img src="{{ asset('imgs/king.jpg') }}" alt="Founder 5">
                             <div class="social-links">
                                 <a href="#"><i class="fab fa-linkedin"></i></a>
                                 <a href="#"><i class="fab fa-twitter"></i></a>
@@ -128,7 +128,7 @@
 
                     <div class="team-member">
                         <div class="member-photo">
-                            <img src="/Asset/luis.jpg" alt="Founder 6">
+                            <img src="{{ asset('imgs/luis.jpg') }}" alt="Founder 6">
                             <div class="social-links">
                                 <a href="#"><i class="fab fa-linkedin"></i></a>
                                 <a href="#"><i class="fab fa-twitter"></i></a>

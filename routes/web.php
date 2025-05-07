@@ -10,10 +10,14 @@ use App\Http\Controllers\ClientControllers\DonationController;
 use App\Http\Controllers\ClientControllers\ServicesController;
 use App\Http\Controllers\ClientControllers\AboutController;
 use App\Http\Controllers\ClientControllers\AuthController;
+use App\Http\Controllers\ClientControllers\AdminController;
+
 
 
 // Admin Controllers
-use App\Http\Controllers\AdminControllers\DashboardController;
+use App\Http\Controllers\AdminControllers\AdminPetController;
+
+
 
 
 
@@ -107,7 +111,21 @@ Route::get('/about', [AboutController::class, 'aboutPage'])->name('client.about'
 
 
 // ADMIN
+// Pets Page
+Route::get('/admin', [PetsController::class, 'showAdminPetPage'])->name('admin.pet');
+// Add Pet
+Route::post('/admin/add-pet', [PetsController::class, 'adminAddPet'])->name('admin.add-pet');
+// View Pet
+Route::get('/admin/pet-details', [PetsController::class, 'adminViewPet'])->name('admin.view-pet');
+//edit  Pet
+Route::get('/admin/pet-edit', [PetsController::class, 'editPet'])->name('admin.edit-pet');
+Route::put('/admin/pet-update/{pet}', [PetsController::class, 'updatePet'])->name('admin.update-pet');
 
-// Dashboard
-// Show Dashboard Page
-Route::get('/admin', [DashboardController::class, 'showDashboardPage'])->name('admin.dashboard')->middleware('auth');
+// Route for updating pet image (PUT request, since your form uses @method('PUT'))
+Route::put('/admin/pets/{pet}/update-image', [PetsController::class, 'updatePetImage'])->name('admin.pet.update-image');
+
+// Route for removing pet image (DELETE request)
+Route::delete('/admin/pets/{pet}/remove-image', [PetsController::class, 'removePetImage'])->name('admin.pet.remove-image');
+
+
+Route::delete('/client/pets/{pet}', [PetsController::class, 'destroyPet'])->name('client.delete-pet');

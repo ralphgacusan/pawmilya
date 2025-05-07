@@ -4,7 +4,8 @@
 
 
     @push('styles')
-        @vite(['resources/css/service.css', 'resources/css/about.css', 'resources/js/service.js'])
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/service.css') }}">
     @endpush
 
 
@@ -67,6 +68,22 @@
                 </div>
             </div>
         </section>
+
+        <script>
+            // View details functionality
+            document.querySelectorAll('.view-details').forEach(button => {
+                button.addEventListener('click', function() {
+                    const serviceId = this.getAttribute('data-service');
+                    const details = document.getElementById(`service-details-${serviceId}`);
+
+                    // Toggle the details display
+                    details.classList.toggle('active');
+
+                    // Change button text
+                    this.textContent = details.classList.contains('active') ? 'Hide Details' : 'View Details';
+                });
+            });
+        </script>
     </main>
 
 </x-customer-layout>

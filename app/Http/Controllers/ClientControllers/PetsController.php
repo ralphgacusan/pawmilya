@@ -5,6 +5,8 @@ namespace App\Http\Controllers\ClientControllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pet;
+use Illuminate\Support\Facades\Storage;
+
 
 class PetsController extends Controller
 {
@@ -52,4 +54,154 @@ class PetsController extends Controller
         
         return view('client.specific-pet', compact('pet'));
     }
+
+
+
+    public function showAdminPetPage(Request $request)
+{
+    $query = Pet::query();
+
+    // Filter by search name
+    if ($request->filled('search')) {
+        $query->where('name', 'like', '%' . $request->search . '%');
+    }
+
+    // Filter by type
+    if ($request->filled('type') && $request->type !== 'all') {
+        $query->where('type', $request->type);
+    }
+
+    // Filter by status
+    if ($request->filled('status') && $request->status !== 'all') {
+        $query->where('status', $request->status);
+    }
+
+    // Sort by created_at
+    if ($request->filled('date')) {
+        $query->orderBy('created_at', $request->date === 'oldest' ? 'asc' : 'desc');
+    }
+
+    // Get all filters
+    $filters = $request->only(['type', 'status', 'date', 'search']);
+
+    // Pagination with filters
+    $pets = $query->paginate(20)->appends($filters);
+
+    return view('admin.pet-management', compact('pets'))->with('filters', $filters);
+}
+
+
+public function adminAddPet(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'birth_date' => 'required|date',
+        'type' => 'required|string|max:255',
+        'breed' => 'required|string|max:255',
+        'gender' => 'required|string|max:10',
+        'height' => 'required|numeric',
+        'weight' => 'required|numeric',
+        'temperament' => 'nullable|string',
+        'good_with' => 'nullable|string',
+        'spayed_neutered_status' => 'required|string|max:20',
+        'vaccination_status' => 'nullable|string|max:20',
+        'existing_conditions' => 'nullable|string',
+        'description' => 'required|string',
+        'status' => 'string|max:20',
+        'image' => 'required|file|image|max:2048',
+    ]);
+
+    $validated['image'] = $request->file('image')->store('images', 'public');
+
+    Pet::create($validated);
+    // Redirect or return response after successfully adding the pet
+    return redirect()->route('admin.pet')->with('success', 'Pet added successfully!');
+    
+}
+
+public function adminViewPet(Request $request) {
+    $petId = $request->query('id');
+    $pet = Pet::findOrFail($petId);
+        
+    return view('admin.pet-details', compact('pet'));
+}
+
+// Update Pet Image
+public function updatePetImage(Request $request, Pet $pet)
+{
+    $request->validate([
+        'image' => 'required|image|max:2048',
+    ]);
+
+    // Delete old image if it exists
+    if ($pet->image && Storage::exists('public/' . $pet->image)) {
+        Storage::delete('public/' . $pet->image);
+    }
+
+    // Store new image
+    $path = $request->file('image')->store('pets', 'public');
+    $pet->update(['image' => $path]);
+
+    return back()->with('success', 'Pet profile picture updated.');
+}
+
+// Remove Pet Image
+public function removePetImage(Pet $pet)
+{
+    if ($pet->image && Storage::exists('public/' . $pet->image)) {
+        Storage::delete('public/' . $pet->image);
+    }
+
+    $pet->image = null;
+    $pet->save();
+
+    return back()->with('success', 'Pet profile picture removed.');
+}
+
+
+
+// Edit Pet Page
+public function editPet(Request $request)
+{
+    $petId = $request->query('id');
+    $pet = Pet::findOrFail($petId);
+    return view('admin.pet-edit', compact('pet'));
+}
+public function updatePet(Request $request, Pet $pet)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'birth_date' => 'required|date',
+        'type' => 'required|string|max:255',
+        'breed' => 'required|string|max:255',
+        'gender' => 'required|string|max:10',
+        'height' => 'required|numeric',
+        'weight' => 'required|numeric',
+        'temperament' => 'nullable|string',
+        'good_with' => 'nullable|string',
+        'spayed_neutered_status' => 'required|string|max:20',
+        'vaccination_status' => 'nullable|string|max:20',
+        'existing_conditions' => 'nullable|string',
+        'description' => 'required|string',
+        'status' => 'string|max:20',
+    ]);
+
+    $pet->update($request->all());
+
+    return redirect()->route('admin.pet', $pet->id)->with('success', 'Pet profile updated.');
+}
+
+
+// Delete Pet
+public function destroyPet(Pet $pet)
+{
+    if ($pet->image && Storage::exists('public/' . $pet->image)) {
+        Storage::delete('public/' . $pet->image);
+    }
+
+    $pet->delete();
+
+    return redirect()->route('admin.pet')->with('success', 'Pet record deleted.');
+}
+
 }

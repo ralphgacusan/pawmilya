@@ -4,7 +4,9 @@
 
 
     @push('styles')
-        @vite(['resources/css/adopt.css', 'resources/css/form.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="{{ asset('css/adopt.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+        <link rel="stylesheet" href="{{ asset('js/app.js') }}">
     @endpush
 
 

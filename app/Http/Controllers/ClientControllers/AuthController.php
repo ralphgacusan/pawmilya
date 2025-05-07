@@ -45,34 +45,44 @@ class AuthController extends Controller
         return redirect()->route('client.pets')->with('success', 'Registration successful! Welcome, ' . $user->first_name . '!');
 
     }
-
     public function signin(Request $request)
-{
-    // Validate the login credentials
-    $validated = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required|string|min:8',
-    ]);
+    {
+        // Validate the login credentials
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
+        ]);
 
+        if ($validated['email'] === 'admin@pawmilya.site' && $validated['password'] === 'admin123') {
+            // Redirect to admin dashboard
+            return redirect()->route('admin.pet')->with('success', 'Welcome, Admin!');
+        } 
+        elseif (Auth::attempt($validated)) {
+            // Regenerate session
+            $request->session()->regenerate();
+        
+            // Create success message
+            $successMessage = 'Sign-in successful, welcome back ' . Auth::user()->first_name . '!';
+            Log::info('User Success Message: ' . $successMessage);
+        
+            // Redirect to client area
+            return redirect()->intended(route('client.pets'))->with('success', $successMessage);
+        } 
+        else {
+            // Authentication failed
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ])->onlyInput('email');
+        }
     
-    // Attempt to log the user in
-    if (Auth::attempt($validated)) {
-        // Regenerate the session to avoid session fixation attacks
-        $request->session()->regenerate();
+        // If authentication fails, throw a validation exception
+        throw ValidationException::withMessages([
+            'email' => 'Sorry, incorrect credentials',
+        ]);
 
-        // Redirect back to the intended page, or to a default page
-        // Log the success message before redirecting
-        $successMessage = 'Sign-in successful, welcome back ' . Auth::user()->first_name . '!';
-        Log::info('Success Message: ' . $successMessage);
 
-        return redirect()->intended(route('client.pets'))
-            ->with('success', $successMessage); }
-
-    // If authentication fails, throw a validation exception
-    throw ValidationException::withMessages([
-        'email' => 'Sorry, incorrect credentials',
-    ]);
-}
+        
+    }
 
 
     // Log out
@@ -175,6 +185,11 @@ public function redirectToSignin(){
 }
 
 
+public function adminLogOut() {
 
+    return redirect()->route('auth.signin')->with('success', 'Logged out successfully.');
+
+
+}
 
 }

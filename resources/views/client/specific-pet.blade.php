@@ -1,7 +1,8 @@
 <x-customer-layout>
 
     @push('styles')
-        @vite(['resources/css/specific-pet.css', 'resources/css/about.css'])
+        <link rel="stylesheet" href="{{ asset('css/specific-pet.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/about.css') }}">
     @endpush
 
     <div class="meet-me-card">

@@ -5,9 +5,9 @@ namespace App\Http\Controllers\AdminControllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class AdminPetController extends Controller
 {
-    public function showDashboardPage() {
-        return view('admin.dashboard');
+    public function showAdminPetPage(){
+        return view('admin.pet-management');
     }
 }

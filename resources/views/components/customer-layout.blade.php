@@ -9,7 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>@yield('title', 'Pawmilya')</title>
     <link rel="icon" href="{{ asset('imgs/paw.png') }}" type="image/x-icon">
-    @vite(['resources/css/about.css', 'resources/js/pet.js'])
+    <link rel="stylesheet" href="{{ asset('css/about.css') }}">
+    <script src="{{ asset('js/app.js') }}"></script>
     @stack('styles')
     @yield('styles') <!-- This will allow child layout to inject styles -->
 </head>

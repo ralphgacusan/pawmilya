@@ -4,7 +4,8 @@
 
 
     @push('styles')
-        @vite(['resources/css/adopt.css', 'resources/css/about.css'])
+        <link rel="stylesheet" href="{{ asset('css/adopt.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/about.css') }}">
     @endpush
 
     <!-- Adoption Page Hero -->
