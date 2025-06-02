@@ -33,4 +33,9 @@ class Pet extends Model
 
     // You can also define the dates for your columns (like `birth_date`)
     protected $dates = ['birth_date'];
+
+    public function adoptions()
+{
+    return $this->hasMany(Adoption::class);
+}
 }

@@ -111,6 +111,10 @@ Route::get('/about', [AboutController::class, 'aboutPage'])->name('client.about'
 
 
 // ADMIN
+// Log out
+Route::post('/admin/logout', [AuthController::class, 'adminLogOut'])->name('admin.logout');
+
+
 // Pets Page
 Route::get('/admin', [PetsController::class, 'showAdminPetPage'])->name('admin.pet');
 // Add Pet
@@ -127,5 +131,89 @@ Route::put('/admin/pets/{pet}/update-image', [PetsController::class, 'updatePetI
 // Route for removing pet image (DELETE request)
 Route::delete('/admin/pets/{pet}/remove-image', [PetsController::class, 'removePetImage'])->name('admin.pet.remove-image');
 
-
+// Delete Pet
 Route::delete('/client/pets/{pet}', [PetsController::class, 'destroyPet'])->name('client.delete-pet');
+
+
+
+
+// Users Page
+Route::get('/admin/users', [AuthController::class, 'showAdminUserPage'])->name('admin.user');
+// Delete User
+Route::delete('/client/users/{user}', [AuthController::class, 'destroyUser'])->name('client.delete-user');
+
+
+
+
+
+// Adoption Application Page
+Route::get('/admin/adoption-applications', [AdoptController::class, 'showAdminAdopApplicationPage'])->name('admin.adopt-application');
+// Delete Adoption Application
+Route::delete('/client/adoption-applications/{adoption}', [AdoptController::class, 'destroyAdoptionApplication'])->name('client.delete-adoption');
+// View Adoption Details
+Route::get('/admin/adoption-applications/details/{adoption_id}', [AdoptController::class, 'adminViewAdoptionDetails'])->name('admin.adoption-details');
+// Show Adoption Edit Page
+Route::get('/admin/adoption-applications/edit/{adoption_id}', [AdoptController::class, 'editAdoptionApplication'])->name('admin.adoption-edit');
+// Update Adoption Application
+Route::put('/admin/adoption-applications/update/{adoption}', [AdoptController::class, 'updateAdoptionApplication'])->name('admin.update-adoption');
+
+
+
+
+
+// Rehome Application Page
+Route::get('/admin/rehome-applications', [RehomeController::class, 'showAdminRehomeApplicationPage'])->name('admin.rehome-application');
+// Delete Rehome Application
+Route::delete('/admin/rehome-applications/{rehome}', [RehomeController::class, 'destroyRehomeApplication'])->name('client.delete-rehome');
+// View Rehome Details
+Route::get('/admin/rehome-applications/details/{rehome_id}', [RehomeController::class, 'adminViewRehomeDetails'])->name('admin.rehome-details');
+
+// Route for updating pet image (PUT request, since your form uses @method('PUT'))
+Route::put('/admin/rehome-applications/{rehomePet}/update-image', [RehomeController::class, 'updateRehomePetImage'])->name('admin.rehome-pet.update-image');
+
+// Route for removing pet image (DELETE request)
+Route::delete('/admin/rehome-applications/{rehomePet}/remove-image', [RehomeController::class, 'removeRehomePetImage'])->name('admin.rehome-pet.remove-image');
+
+// Show Adoption Edit Page
+Route::get('/admin/rehome-applications/edit/{rehome_id}', [RehomeController::class, 'editRehomeApplication'])->name('admin.rehome-edit');
+
+// Update Adoption Application
+Route::put('/admin/rehome-applications/update/{rehome}', [RehomeController::class, 'updateRehomeApplication'])->name('admin.update-rehome');
+
+
+
+
+// Donation Page
+Route::get('/admin/donations', [DonationController::class, 'showAdminDonationPage'])->name('admin.donation');
+// Delete Donation
+Route::delete('/admin/donations/{donation}', [DonationController::class, 'destroyDonation'])->name('admin.delete-donation');
+// View Donation Details
+Route::get('/admin/donation/details/{donation_id}', [DonationController::class, 'adminViewDonationDetails'])->name('admin.donation-details');
+
+
+
+// Services Page
+Route::get('/admin/services', [ServicesController::class, 'showAdminServicePage'])->name('admin.service');
+// Delete Service
+Route::delete('/client/services/{service}', [ServicesController::class, 'destroyService'])->name('admin.delete-service');
+// Show service edit page
+Route::get('/admin/service-edit', [ServicesController::class, 'editService'])->name('admin.edit-service');
+// update service
+Route::put('/admin/service-update/{service}', [ServicesController::class, 'updateService'])->name('admin.update-service');
+// Show add service page
+Route::get('/admin/service-add', [ServicesController::class, 'showAdminAddService'])->name('admin.add-service-page');
+// Add Service
+Route::post('/admin/add-service', [ServicesController::class, 'adminAddService'])->name('admin.add-service');
+
+
+
+// Service Appointment Page
+Route::get('/admin/services/appointments', [ServicesController::class, 'showAdminServiceAppointmentsPage'])->name('admin.service-appointments');
+// Delete Service Appointment
+Route::delete('/client/services/appointments/{appointment}', [ServicesController::class, 'destroyServiceAppointment'])->name('admin.delete-service-appointment');
+// View Appointment Details
+Route::get('/admin/services/details/{appointment_id}', [ServicesController::class, 'adminViewServiceAppointmentDetails'])->name('admin.appointment-details');
+// Show service appointment edit page
+Route::get('/admin/service-appointment-edit', [ServicesController::class, 'editServiceAppointment'])->name('admin.edit-service-appointment');
+// UpdateService appointment
+Route::put('/admin/services/appointments/update/{appointment}', [ServicesController::class, 'updateServiceAppointment'])->name('admin.update-service-appointment');

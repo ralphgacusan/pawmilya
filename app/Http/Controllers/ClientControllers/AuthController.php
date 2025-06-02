@@ -54,9 +54,12 @@ class AuthController extends Controller
         ]);
 
         if ($validated['email'] === 'admin@pawmilya.site' && $validated['password'] === 'admin123') {
+            // Set admin session
+            $request->session()->put('is_admin', true);
+
             // Redirect to admin dashboard
             return redirect()->route('admin.pet')->with('success', 'Welcome, Admin!');
-        } 
+        }
         elseif (Auth::attempt($validated)) {
             // Regenerate session
             $request->session()->regenerate();
@@ -185,11 +188,63 @@ public function redirectToSignin(){
 }
 
 
-public function adminLogOut() {
+public function adminLogOut(Request $request)
+{
+    // Remove the 'is_admin' session data to log out the admin
+    $request->session()->forget('is_admin');
+    
+    // Optionally, you can also flush the entire session if needed
+    // $request->session()->flush();
 
+    // Redirect to the login page with a success message
     return redirect()->route('auth.signin')->with('success', 'Logged out successfully.');
+}
 
 
+public function showAdminUserPage(Request $request)
+{if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
+    $query = User::query();
+
+    // Filter by search (first name or last name)
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->where(function ($q) use ($search) {
+            $q->where('first_name', 'like', '%' . $search . '%')
+              ->orWhere('last_name', 'like', '%' . $search . '%');
+        });
+    }
+
+    // Sort by creation date
+    if ($request->filled('date')) {
+        $query->orderBy('created_at', $request->date === 'oldest' ? 'asc' : 'desc');
+    } else {
+        $query->orderBy('created_at', 'desc'); // Default to newest
+    }
+
+    // Get all applied filters
+    $filters = $request->only(['date', 'search']);
+
+    // Paginate with filters appended to links
+    $users = $query->paginate(20)->appends($filters);
+
+    return view('admin.user-management', compact('users', 'filters'));
+}
+
+
+// Delete User
+public function destroyUser(User $user, Request $request)
+{if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
+    if ($user->image && Storage::exists('public/' . $user->image)) {
+        Storage::delete('public/' . $user->image);
+    }
+
+    $user->delete();
+
+    return redirect()->route('admin.user')->with('success', 'User record deleted.');
 }
 
 }

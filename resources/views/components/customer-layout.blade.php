@@ -10,9 +10,10 @@
     <title>@yield('title', 'Pawmilya')</title>
     <link rel="icon" href="{{ asset('imgs/paw.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/about.css') }}">
-    <script src="{{ asset('js/app.js') }}"></script>
     @stack('styles')
     @yield('styles') <!-- This will allow child layout to inject styles -->
+    @stack('scripts') <!-- To push scripts from child views -->
+    @yield('scripts') <!-- Allow child views to define scripts -->
 </head>
 
 <body>
@@ -171,7 +172,12 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 Pawmilya. All rights reserved.</p>
+                <p>&copy; 2023 Pawmilya. Disclaimer
+
+                    This website is created solely for educational purposes.
+
+                    All content, data, and information presented here are fictional and not intended to represent real
+                    people, businesses, or facts.</p>
                 <div class="legal-links"> <a href="{{ route('client.about') }}">Privacy Policy</a> <a
                         href="{{ route('client.about') }}">Terms of Service</a>
                 </div>

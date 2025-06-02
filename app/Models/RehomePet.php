@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RehomePet extends Model
 {
-
     protected $fillable = [
         'name',
         'birth_date',
@@ -24,4 +24,11 @@ class RehomePet extends Model
         'status',
         'image',
     ];
+
+    // Relationship
+
+    public function rehomes(): HasMany
+    {
+        return $this->hasMany(Rehome::class);
+    }
 }

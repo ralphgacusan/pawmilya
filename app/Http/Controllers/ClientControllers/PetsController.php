@@ -14,6 +14,8 @@ class PetsController extends Controller
     {
         $query = Pet::query();
 
+            $query->where('status', 'available');
+
         // Normalize and filter pet type
         if ($request->filled('petType') && strtolower($request->petType) !== 'all') {
             $petType = strtolower($request->petType);
@@ -59,6 +61,9 @@ class PetsController extends Controller
 
     public function showAdminPetPage(Request $request)
 {
+    if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
     $query = Pet::query();
 
     // Filter by search name
@@ -86,13 +91,16 @@ class PetsController extends Controller
 
     // Pagination with filters
     $pets = $query->paginate(20)->appends($filters);
-
+    
     return view('admin.pet-management', compact('pets'))->with('filters', $filters);
 }
 
 
 public function adminAddPet(Request $request)
 {
+    if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
     $validated = $request->validate([
         'name' => 'required|string|max:255',
         'birth_date' => 'required|date',
@@ -120,6 +128,9 @@ public function adminAddPet(Request $request)
 }
 
 public function adminViewPet(Request $request) {
+    if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
     $petId = $request->query('id');
     $pet = Pet::findOrFail($petId);
         
@@ -129,6 +140,9 @@ public function adminViewPet(Request $request) {
 // Update Pet Image
 public function updatePetImage(Request $request, Pet $pet)
 {
+    if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
     $request->validate([
         'image' => 'required|image|max:2048',
     ]);
@@ -146,8 +160,11 @@ public function updatePetImage(Request $request, Pet $pet)
 }
 
 // Remove Pet Image
-public function removePetImage(Pet $pet)
+public function removePetImage(Pet $pet, Request $request)
 {
+    if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
     if ($pet->image && Storage::exists('public/' . $pet->image)) {
         Storage::delete('public/' . $pet->image);
     }
@@ -163,12 +180,20 @@ public function removePetImage(Pet $pet)
 // Edit Pet Page
 public function editPet(Request $request)
 {
+    if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
     $petId = $request->query('id');
     $pet = Pet::findOrFail($petId);
     return view('admin.pet-edit', compact('pet'));
 }
+
+
 public function updatePet(Request $request, Pet $pet)
 {
+    if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
     $request->validate([
         'name' => 'required|string|max:255',
         'birth_date' => 'required|date',
@@ -193,8 +218,11 @@ public function updatePet(Request $request, Pet $pet)
 
 
 // Delete Pet
-public function destroyPet(Pet $pet)
+public function destroyPet(Pet $pet, Request $request)
 {
+    if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
     if ($pet->image && Storage::exists('public/' . $pet->image)) {
         Storage::delete('public/' . $pet->image);
     }

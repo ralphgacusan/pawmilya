@@ -192,7 +192,7 @@
                             <p><i class="fas fa-birthday-cake"></i> {{ \Carbon\Carbon::parse($pet->birth_date)->age }}
                                 years old</p>
                             <div class="tags">
-                                <span class="breed-tag">{{ ucfirst($pet->breed) }}</span>
+                                <span class="breed-tag">{{ ucfirst(str_replace('_', ' ', $pet->breed)) }}</span>
                                 <span class="size-tag">{{ ucfirst($pet->size) }}</span>
                             </div>
                             <br>
@@ -203,7 +203,7 @@
                         <div class="pet-details" id="pet-details-{{ $pet->id }}" style="display: none;">
                             <div class="detail-row">
                                 <div class="detail-label">Breed:</div>
-                                <div class="detail-value">{{ ucfirst($pet->breed) }}</div>
+                                <div class="detail-value">{{ ucfirst(str_replace('_', ' ', $pet->breed)) }}</div>
                             </div>
                             <div class="detail-row">
                                 <div class="detail-label">Gender:</div>

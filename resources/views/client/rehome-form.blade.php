@@ -5,6 +5,26 @@
     @push('styles')
         <link rel="stylesheet" href="{{ asset('css/about.css') }}">
         <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+        <!-- Flatpickr CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    @endpush
+
+    @push('scripts')
+        <!-- Flatpickr JS -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                flatpickr("#meetupTime", {
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: "h:i K", // 'h:i K' gives 12-hour format with AM/PM (e.g., 7:00 AM)
+                    time_24hr: false, // Use AM/PM format
+                    minTime: "07:00", // 7:00 AM
+                    maxTime: "17:00", // 5:00 PM
+                });
+            });
+        </script>
     @endpush
 
     <main class="main-content">
@@ -79,7 +99,7 @@
                         <div class="form-group">
                             <label for="petName" class="form-label">Pet's Name*</label>
                             <input type="text" id="petName" name="name" class="form-input" required
-                                placeholder="Max" value="{{ old('name') }}">
+                                placeholder="Enter your pet's name" value="{{ old('name') }}">
                             <span class="input-icon"><i class="icon-pet"></i></span>
                             <div class="validation-message">Please enter your pet's name</div>
                             @error('name')
@@ -357,7 +377,7 @@
                         <div class="form-group">
                             <label for="meetupTime" class="form-label">Desired Time*</label>
                             <input type="text" id="meetupTime" name="meet_up_time" class="form-input" required
-                                value="{{ old('meet_up_time') }}" placeholder="HH:MM AM/PM">
+                                placeholder="HH:MM AM/PM">
                             <span class="input-icon"><i class="icon-clock"></i></span>
                             <div class="validation-message">Please select a time for the meetup</div>
                             @error('meet_up_time')

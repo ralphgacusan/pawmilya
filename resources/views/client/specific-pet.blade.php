@@ -18,7 +18,7 @@
                     <p><strong>Age:</strong> {{ \Carbon\Carbon::parse($pet->birth_date)->age }} years old</p>
                     <p><strong>Birth Date:</strong> {{ $pet->birth_date }}</p>
                     <p><strong>Type:</strong> {{ ucfirst($pet->type) }}</p>
-                    <p><strong>Breed:</strong> {{ ucfirst($pet->breed) }}</p>
+                    <p><strong>Breed:</strong>{{ ucfirst(str_replace('_', ' ', $pet->breed)) }}</p>
                     <p><strong>Gender:</strong> {{ ucfirst($pet->gender) }}</p>
                     <p><strong>Height:</strong> {{ ucfirst($pet->height) }}</p>
                     <p><strong>Weight:</strong> {{ $pet->weight }} lbs</p>

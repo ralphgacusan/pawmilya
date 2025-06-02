@@ -195,19 +195,17 @@
             });
 
 
-            <
-            script >
-                // Auto-hide alert after 5 seconds
-                setTimeout(() => {
-                    document.querySelectorAll('.alert').forEach(alert => {
-                        alert.style.transition = "opacity 0.5s ease";
-                        alert.style.opacity = "0";
-                        setTimeout(() => alert.remove(), 500);
-                    });
-                }, 5000);
+
+            // Auto-hide alert after 5 seconds
+            setTimeout(() => {
+                document.querySelectorAll('.alert').forEach(alert => {
+                    alert.style.transition = "opacity 0.5s ease";
+                    alert.style.opacity = "0";
+                    setTimeout(() => alert.remove(), 500);
+                });
+            }, 5000);
         </script>
 
-        </script>
     </body>
 
     </html>

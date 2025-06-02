@@ -29,7 +29,8 @@
                         </div>
                         <div class="pet-info">
                             <h3>{{ $pet->name }}</h3>
-                            <p>{{ $pet->type }} - {{ $pet->breed }}</p>
+                            <p>{{ ucfirst(str_replace('_', ' ', $pet->type)) }} -
+                                {{ ucfirst(str_replace('_', ' ', $pet->breed)) }}</p>
 
                             <a href="{{ route('client.adopt-form', ['id' => $pet->id]) }}">
                                 <button class="btn btn-secondary">Adopt Me</button>

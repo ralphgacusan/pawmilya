@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pets | Pawmilya Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="{{ asset('imgs/paw.png') }}" type="image/x-icon">
+
     <style>
         /* General Styles */
         :root {
@@ -427,9 +429,12 @@
             margin-top: 20px;
         }
 
+
+
         /* Modal Styles */
         .modal {
             display: none;
+            /* This hides it by default */
             position: fixed;
             top: 0;
             left: 0;
@@ -437,8 +442,10 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 1000;
-            align-items: center;
+
+            /* Centering styles - keep these */
             justify-content: center;
+            align-items: center;
         }
 
         .modal-content {
@@ -485,6 +492,7 @@
             gap: 10px;
             margin-top: 20px;
         }
+
 
         @media (max-width: 768px) {
             .modal-form .form-row {
@@ -608,19 +616,24 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h2>PetAdopt Admin</h2>
+                <h2>Pawmilya</h2>
                 <p>Administration Panel</p>
             </div>
             <ul class="sidebar-menu">
-                <li><a href="admin.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a href="pets.html" class="active"><i class="fas fa-paw"></i> Pets Management</a></li>
-                <li><a href="user.html"><i class="fas fa-users"></i> Users</a></li>
-                <li><a href="application.html"><i class="fas fa-file-alt"></i> Applications</a></li>
-                <li><a href="rehomeadmin.html"><i class="fas fa-home"></i> Rehoming Requests</a></li>
-                <li><a href="appointment.html"><i class="fas fa-calendar-alt"></i> Appointments</a></li>
-                <li><a href="message.html"><i class="fas fa-envelope"></i> Messages</a></li>
-                <li><a href="report.html"><i class="fas fa-chart-bar"></i> Reports</a></li>
-                <li><a href="setting.html"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="{{ route('admin.pet') }}" class="active"><i class="fas fa-paw"></i>Pet Management</a>
+                </li>
+                <li><a href="{{ route('admin.user') }}"><i class="fas fa-users"></i>User Management</a>
+                </li>
+                <li><a href="{{ route('admin.adopt-application') }}"><i class="fas fa-file-alt"></i>Adoption
+                        Applications</a>
+                </li>
+                <li><a href="{{ route('admin.rehome-application') }}"><i class="fas fa-home"></i>Rehoming
+                        Applications</a>
+                </li>
+                <li><a href="{{ route('admin.donation') }}"><i class="fas fa-hand-holding-heart"></i>Donations</a></li>
+                <li><a href="{{ route('admin.service') }}"><i class="fas fa-concierge-bell"></i>Services</a></li>
+                <li><a href="{{ route('admin.service-appointments') }}"><i class="fas fa-calendar-alt"></i>Service
+                        Appointments</a>
             </ul>
         </aside>
 
@@ -650,10 +663,14 @@
                 <div class="user-info">
 
 
-                    <a href="{{ route('auth.signin') }}">
+                    <form action="{{ route('admin.logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit"
+                            style="text-decoration: none; font-weight: 500; font-size: 16px; color: #000; background: white; padding: 8px 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); transition: 0.3s ease; border: none; cursor: pointer;">
+                            Logout
+                        </button>
+                    </form>
 
-                        Logout
-                    </a>
 
                 </div>
             </div>
@@ -752,8 +769,13 @@
                             <tr>
                                 <td>{{ $pet->id }}</td>
                                 <td>
-                                    <img src="{{ asset('storage/' . $pet->image) ?? 'https://via.placeholder.com/50' }}"
-                                        alt="{{ $pet->name }}" class="pet-thumbnail">
+                                    @if ($pet->image)
+                                        <img src="{{ asset('storage/' . $pet->image) ?? 'https://via.placeholder.com/50' }}"
+                                            alt="{{ $pet->name }}" class="pet-thumbnail">
+                                    @else
+                                        <span>No Image</span>
+                                    @endif
+
                                 </td>
                                 <td>{{ $pet->name }}</td>
                                 <td>
@@ -765,7 +787,7 @@
                                     {{ $age }} {{ Str::plural('year', $age) }}
                                 </td>
                                 <td>{{ ucfirst($pet->type) }}</td>
-                                <td>{{ $pet->breed }}</td>
+                                <td>{{ ucfirst(str_replace('_', ' ', $pet->breed)) }}</td>
                                 <td>
                                     <span class="status {{ strtolower($pet->status) }}">
                                         {{ ucfirst($pet->status) }}
@@ -836,7 +858,7 @@
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" id="name" class="form-control" name="name"
-                                    value="{{ old('name') }}" required>
+                                    value="{{ old('name') }}" required placeholder="Enter pet's name">
                                 @error('name')
                                     <small class="input-error" style="color: red;">{{ $message }}</small>
                                 @enderror
@@ -968,7 +990,7 @@
                             <div class="form-group">
                                 <label for="height">Height</label>
                                 <input type="text" id="height" class="form-control" name="height"
-                                    value="{{ old('height') }}" placeholder="e.g. 50 cm" required>
+                                    value="{{ old('height') }}" placeholder="Enter pet's height" required>
                                 @error('height')
                                     <small class="input-error" style="color: red;">{{ $message }}</small>
                                 @enderror
@@ -980,7 +1002,7 @@
                             <div class="form-group">
                                 <label for="weight">Weight</label>
                                 <input type="text" id="weight" class="form-control" name="weight"
-                                    value="{{ old('weight') }}" placeholder="e.g. 5 kg" required>
+                                    value="{{ old('weight') }}" placeholder="Enter pet's weight" required>
                                 @error('weight')
                                     <small class="input-error" style="color: red;">{{ $message }}</small>
                                 @enderror
@@ -988,7 +1010,7 @@
                             <div class="form-group">
                                 <label for="temperament">Temperament</label>
                                 <input type="text" id="temperament" class="form-control" name="temperament"
-                                    value="{{ old('temperament') }}" required>
+                                    value="{{ old('temperament') }}" required placeholder="Enter pet's temperament">
                                 @error('temperament')
                                     <small class="input-error" style="color: red;">{{ $message }}</small>
                                 @enderror
@@ -1000,7 +1022,8 @@
                             <div class="form-group">
                                 <label for="good-with">Good With</label>
                                 <input type="text" id="good-with" class="form-control" name="good_with"
-                                    value="{{ old('good_with') }}" placeholder="e.g. kids, other pets" required>
+                                    value="{{ old('good_with') }}" required
+                                    placeholder="Enter who the pet is good with">
                             </div>
                             <div class="form-group">
                                 <label for="spayed-neutered-status">Spayed/Neutered Status</label>
@@ -1042,7 +1065,8 @@
                             <div class="form-group">
                                 <label for="existing_conditions">Existing Conditions</label>
                                 <input type="text" id="existing_conditions" class="form-control"
-                                    name="existing_conditions" value="{{ old('existing_conditions') }}" required>
+                                    name="existing_conditions" value="{{ old('existing_conditions') }}" required
+                                    placeholder="Enter pet's existing condition">
                                 @error('existing_conditions')
                                     <small class="input-error" style="color: red;">{{ $message }}</small>
                                 @enderror
@@ -1053,18 +1077,22 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea id="description" class="form-control" name="description" rows="3" required>{{ old('description') }}</textarea>
+                                <textarea id="description" class="form-control" name="description" rows="3" required
+                                    placeholder="Enter pet's existing condition">{{ old('description') }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="status">Status</label>
                                 <select id="status" name="status" class="form-control" required>
-                                    <option value="" disabled {{ old('status') == '' ? 'selected' : '' }}>Select
+                                    <option value="" disabled {{ old('status') == '' ? 'selected' : '' }}>
+                                        Select
                                         status</option>
                                     <option value="available" {{ old('status') == 'available' ? 'selected' : '' }}>
                                         Available</option>
-                                    <option value="adopted" {{ old('status') == 'adopted' ? 'selected' : '' }}>Adopted
+                                    <option value="adopted" {{ old('status') == 'adopted' ? 'selected' : '' }}>
+                                        Adopted
                                     </option>
-                                    <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending
+                                    <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>
+                                        Pending
                                     </option>
                                 </select>
                                 @error('status')
@@ -1098,8 +1126,9 @@
     <script>
         // Simple modal toggle functionality
         document.getElementById('add-pet-btn').addEventListener('click', function() {
-            document.getElementById('add-pet-modal').style.display = 'block';
+            document.getElementById('add-pet-modal').style.display = 'flex';
         });
+
 
         document.querySelectorAll('.close-modal').forEach(function(btn) {
             btn.addEventListener('click', function() {
@@ -1113,6 +1142,23 @@
                 document.getElementById('add-pet-modal').style.display = 'none';
             }
         });
+
+
+        function showNotification(message, type = 'success', duration = 6000) {
+            const container = document.getElementById('notification-container');
+            const notif = document.createElement('div');
+            notif.className = `notification ${type}`;
+            notif.innerHTML = `
+                <span>${message}</span>
+                <span class="close-btn" onclick="this.parentElement.remove()">×</span>
+            `;
+
+            container.appendChild(notif);
+
+            setTimeout(() => {
+                notif.remove();
+            }, duration);
+        }
     </script>
 </body>
 

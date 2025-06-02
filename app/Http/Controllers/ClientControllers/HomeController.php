@@ -10,8 +10,7 @@ class HomeController extends Controller
 {
     
     public function homePage(){
-        $pets = Pet::orderBy('created_at', 'asc')->take(3)->get();
-    
+$pets = Pet::where('status', 'available')->orderBy('created_at', 'asc')->take(3)->get();    
         return view('client.home', compact('pets'));
     }
     

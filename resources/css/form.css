@@ -731,3 +731,38 @@ textarea.form-input {
         justify-content: center;
     }
 }
+
+/* Basic Styles for Time Picker */
+.time-picker-container {
+    position: relative;
+    display: inline-block;
+}
+
+.time-picker-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    display: none;
+    z-index: 10;
+}
+
+.time-picker-dropdown button {
+    background: none;
+    border: none;
+    padding: 5px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.time-picker-dropdown button:hover {
+    background-color: #f0f0f0;
+}
+
+input[type="text"] {
+    padding-right: 30px;
+}

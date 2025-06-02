@@ -22,7 +22,7 @@
                     <p>View and manage pet information</p>
                 </div>
                 <div class="header-actions" style="display: flex; gap: 10px;">
-                    <a href="{{ route('admin.pet') }}" class="header-link">Back</a>
+                    <a href="{{ url()->previous() ?? route('fallback.route') }}" class="header-link">Back</a>
 
                 </div>
 
@@ -126,7 +126,7 @@
 
                         <div class="detail-group">
                             <label>Breed</label>
-                            <div class="detail-value">{{ $pet->breed }}</div>
+                            <div class="detail-value">{{ ucfirst(str_replace('_', ' ', $pet->breed)) }}</div>
                         </div>
 
                         <div class="detail-group">
@@ -141,7 +141,7 @@
 
                         <div class="detail-group">
                             <label>Weight</label>
-                            <div class="detail-value">{{ $pet->weight }} kg</div>
+                            <div class="detail-value">{{ $pet->weight }} lbs</div>
                         </div>
 
                         <div class="detail-group">

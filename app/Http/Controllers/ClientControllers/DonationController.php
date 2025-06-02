@@ -38,4 +38,73 @@ public function submitDonationForm(Request $request)
     return redirect()->route('client.home')->with('success', 'Donation successfully submitted!');
 }
 
+
+ public function showAdminDonationPage(Request $request)
+{if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
+    $query = Donation::with('user');
+
+    // Filter by search (donor's first or last name)
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->whereHas('user', function ($q) use ($search) {
+            $q->where('first_name', 'like', '%' . $search . '%')
+              ->orWhere('last_name', 'like', '%' . $search . '%');
+        });
+    }
+
+    // Filter by donation method
+    if ($request->filled('donation_method')) {
+        $query->where('donation_method', $request->donation_method);
+    }
+
+    // Filter by donation type
+    if ($request->filled('donation_type')) {
+        $query->where('donation_type', $request->donation_type);
+    }
+
+    // Sort by creation date
+    if ($request->filled('date')) {
+        $query->orderBy('created_at', $request->date === 'oldest' ? 'asc' : 'desc');
+    } else {
+        $query->orderBy('created_at', 'desc'); // default
+    }
+
+    // Collect filters
+    $filters = $request->only(['search', 'donation_method', 'donation_type', 'date']);
+
+    // Paginate with filters
+    $donations = $query->paginate(20)->appends($filters);
+
+    return view('admin.donation-management', compact('donations', 'filters'));
+}
+
+
+
+// Delete Donation
+public function destroyDonation(Donation $donation, Request $request)
+{if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
+    $donation->delete();
+
+    return redirect()->route('admin.donation')->with('success', 'Donation record deleted.');
+}
+
+
+// Show Donation Details
+public function adminViewDonationDetails($donation_id, Request $request)
+{if (!$request->session()->get('is_admin')) {
+        abort(403, 'Admins only.');
+    }
+    $donation = Donation::with('user')->findOrFail($donation_id);
+    return view('admin.donation-details', compact('donation'));
+}
+
+
+
+
+
+
 }

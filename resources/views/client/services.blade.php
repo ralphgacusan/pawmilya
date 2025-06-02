@@ -4,8 +4,8 @@
 
 
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/service.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/about.css') }}">
     @endpush
 
 

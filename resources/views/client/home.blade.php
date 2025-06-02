@@ -11,7 +11,51 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
-<body> <!-- Header with Navigation -->
+<body>
+
+    <!-- Modal for disclaimer-->
+    <div id="disclaimerModal"
+        style="
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+  font-family: Arial, sans-serif;
+">
+        <div
+            style="
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-align: center;
+  ">
+            <h2 style="margin-top: 0;">Disclaimer</h2>
+            <p>This website is created solely for educational purposes.</p>
+            <p>All content, data, and information presented here are fictional and not intended to represent real
+                people, businesses, or facts.</p>
+            <button onclick="closeModal()"
+                style="
+      padding: 10px 20px;
+      background-color: #FF914D;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    ">I
+                Understand</button>
+        </div>
+    </div>
+
     <!-- Header with Navigation -->
     <header class="main-header">
         <div class="container">
@@ -99,6 +143,20 @@
         </div>
     </header>
 
+
+    <!-- Disclaimer Banner -->
+    <div
+        style="
+  background-color: #FF914D;
+  color: #000;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+">
+        ⚠️ This website is for educational purposes only. All content and data presented are fictional.
+    </div>
+
+
     <!-- Notification System -->
     <div id="notification-container"></div>
 
@@ -117,6 +175,7 @@
             });
         </script>
     @endif
+
 
     <!-- Hero Section -->
     <section class="hero">
@@ -139,7 +198,8 @@
                         </div>
                         <div class="pet-info">
                             <h3>{{ $pet->name }}</h3>
-                            <p>{{ $pet->breed }} • {{ \Carbon\Carbon::parse($pet->birth_date)->age }} years old</p>
+                            <p>{{ ucfirst(str_replace('_', ' ', $pet->breed)) }} •
+                                {{ \Carbon\Carbon::parse($pet->birth_date)->age }} years old</p>
                         </div>
                     </div>
                 @endforeach
@@ -175,7 +235,8 @@
                     </div> <a href="{{ route('client.about') }}" class="btn btn-outline">Learn More</a>
                 </div>
                 <div class="about-gallery">
-                    <div class="gallery-item"> <img src="{{ asset('imgs/dogown1.jpg') }}" alt="Happy family with pet">
+                    <div class="gallery-item"> <img src="{{ asset('imgs/dogown1.jpg') }}"
+                            alt="Happy family with pet">
                     </div>
                     <div class="gallery-item"> <img src="{{ asset('imgs/bg.jpeg') }}" alt="Pet care"> </div>
                 </div>
@@ -271,7 +332,12 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 Pawmilya. All rights reserved.</p>
+                <p>&copy; 2023 Pawmilya. Disclaimer
+
+                    This website is created solely for educational purposes.
+
+                    All content, data, and information presented here are fictional and not intended to represent real
+                    people, businesses, or facts.</p>
                 <div class="legal-links"> <a href="{{ route('client.about') }}">Privacy Policy</a> <a
                         href="{{ route('client.about') }}">Terms of Service</a>
                 </div>
@@ -294,6 +360,13 @@
             setTimeout(() => {
                 notif.remove();
             }, duration);
+        }
+        window.onload = function() {
+            document.getElementById('disclaimerModal').style.display = 'block';
+        };
+
+        function closeModal() {
+            document.getElementById('disclaimerModal').style.display = 'none';
         }
     </script>
 </body>
